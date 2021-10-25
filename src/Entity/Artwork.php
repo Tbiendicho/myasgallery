@@ -45,7 +45,7 @@ class Artwork
     private $depth;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=1024, nullable=true)
      */
     private $description;
 
@@ -146,12 +146,12 @@ class Artwork
         return $this;
     }
 
-    public function getDescription(): ?int
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(?int $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
