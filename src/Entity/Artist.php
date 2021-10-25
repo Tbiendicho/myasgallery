@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -63,6 +64,7 @@ class Artist
     {
         $this->artworks = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
