@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
              // preparing the database
              $entityManager->persist($artwork);
  
-             $artwork->setTitle($faker->title());
+             $artwork->setTitle($faker->words(2, true));
              $artwork->setPicture($faker->image(null, 640, 480));
              $artwork->setHeight($faker->numberBetween(10, 200));
              $artwork->setWidth($faker->numberBetween(10, 200));
