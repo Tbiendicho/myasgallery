@@ -64,6 +64,8 @@ class Artist
     {
         $this->artworks = new ArrayCollection();
         $this->events = new ArrayCollection();
+
+        // adding a new date for each new object, corresponding to the flush date
         $this->createdAt = new DateTimeImmutable();
     }
 
