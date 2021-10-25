@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use App\Entity\Address;
 use App\Entity\Artist;
+use App\Entity\Artwork;
+use App\Entity\Category;
 use App\Entity\Event;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -33,6 +35,47 @@ class AppFixtures extends Fixture
             // add the fake data in the $artistsList table
             $artistsList[] = $artist;
         }
+
+        $artworkList = [];
+         for ($artworkNumber = 0; $artworkNumber < 50; $artworkNumber++) {
+             $artwork = new Artwork();
+ 
+             // preparing the database
+             $entityManager->persist($artwork);
+ 
+             $artwork->setTitle($faker->title());
+             $artwork->setPicture($faker->image(null, 640, 480));
+             $artwork->setHeight($faker->numberBetween(10, 200));
+             $artwork->setWidth($faker->numberBetween(10, 200));
+             $artwork->setDepth($faker->numberBetween(10, 200));
+             $artwork->setDescription($faker->text(5));
+
+             // get random artist
+             $artistForArtwork = $faker->randomElements($artistsList, '1');
+
+             // add random artist in artists_id column
+             foreach ($artistForArtwork as $currentArtist)
+             {
+                 $artwork->setArtists($currentArtist);
+             }
+
+             // add the fake data in the $artworkList table
+             $artworkList[] = $artwork;
+         }
+
+         // generating a list of random category with faker
+         $categoryList = [];
+         for ($categoryNumber = 0; $categoryNumber < 5; $categoryNumber++) {
+             $category = new Category();
+ 
+             // preparing the database
+             $entityManager->persist($category);
+ 
+             $category->setName($faker->words(1, true));
+
+             // add the fake data in the $artworkList table
+             $categoryList[] = $category;
+         }
 
         $addressesList = [];
         for ($addressNumber = 0; $addressNumber < 10; $addressNumber++) {
