@@ -186,7 +186,7 @@ class Address
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->setAdresses($this);
+            $event->setAddresses($this);
         }
 
         return $this;
@@ -196,8 +196,8 @@ class Address
     {
         if ($this->events->removeElement($event)) {
             // set the owning side to null (unless already changed)
-            if ($event->getAdresses() === $this) {
-                $event->setAdresses(null);
+            if ($event->getAddresses() === $this) {
+                $event->setAddresses(null);
             }
         }
 
