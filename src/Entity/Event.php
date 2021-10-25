@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,27 @@ class Event
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events")
+     */
+    private $artworks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
+     */
+    private $artists;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="events")
+     */
+    private $addresses;
+
+    public function __construct()
+    {
+        $this->artworks = new ArrayCollection();
+        $this->artists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +160,69 @@ class Event
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Artwork[]
+     */
+    public function getArtworks(): Collection
+    {
+        return $this->artworks;
+    }
+
+    public function addArtwork(Artwork $artwork): self
+    {
+        if (!$this->artworks->contains($artwork)) {
+            $this->artworks[] = $artwork;
+            $artwork->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtwork(Artwork $artwork): self
+    {
+        if ($this->artworks->removeElement($artwork)) {
+            $artwork->removeEvent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Artist[]
+     */
+    public function getArtists(): Collection
+    {
+        return $this->artists;
+    }
+
+    public function addArtist(Artist $artist): self
+    {
+        if (!$this->artists->contains($artist)) {
+            $this->artists[] = $artist;
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): self
+    {
+        $this->artists->removeElement($artist);
+
+        return $this;
+    }
+
+    public function getAddresses(): ?Address
+    {
+        return $this->addresses;
+    }
+
+    public function setAddresses(?Address $addresses): self
+    {
+        $this->addresses = $addresses;
 
         return $this;
     }

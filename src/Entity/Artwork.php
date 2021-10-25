@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArtworkRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,6 +58,28 @@ class Artwork
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="artworks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $artists;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks")
+     */
+    private $categories;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="artworks")
+     */
+    private $events;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+        $this->events = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +178,66 @@ class Artwork
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getArtists(): ?Artist
+    {
+        return $this->artists;
+    }
+
+    public function setArtists(?Artist $artists): self
+    {
+        $this->artists = $artists;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        $this->events->removeElement($event);
 
         return $this;
     }
