@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -17,41 +18,57 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("api_event_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("api_event_browse")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups("api_event_browse")
      */
     private $information;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Groups("api_event_browse")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("api_event_browse")
      */
     private $localisation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups("api_event_browse")
      */
     private $link;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * 
+     * @Groups("api_event_browse")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * 
+     * @Groups("api_event_browse")
      */
     private $updatedAt;
 
