@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -17,31 +18,37 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"api_artists_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_artists_browse"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"api_artists_browse"})
      */
     private $information;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"api_artists_browse"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api_artists_browse"})
      */
     private $localisation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api_artists_browse"})
      */
     private $link;
 
@@ -57,6 +64,7 @@ class Event
 
     /**
      * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events")
+     * @Groups({"api_artists_browse"})
      */
     private $artworks;
 
@@ -67,6 +75,7 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="events")
+     * @Groups({"api_artists_browse"})
      */
     private $addresses;
 

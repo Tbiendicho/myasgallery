@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ArtworkRepository::class)
@@ -17,36 +18,43 @@ class Artwork
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"api_artists_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_artists_browse"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=512)
+     * @Groups({"api_artists_browse"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"api_artists_browse"})
      */
     private $height;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"api_artists_browse"})
      */
     private $width;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"api_artists_browse"})
      */
     private $depth;
 
     /**
      * @ORM\Column(type="string", length=1024, nullable=true)
+     * @Groups({"api_artists_browse"})
      */
     private $description;
 
@@ -68,11 +76,13 @@ class Artwork
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks")
+     * @Groups({"api_artists_browse"})
      */
     private $categories;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="artworks")
+     * @Groups({"api_artists_browse"})
      */
     private $events;
 

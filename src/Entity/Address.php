@@ -61,7 +61,7 @@ class Address
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="adresses")
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="addresses")
      */
     private $events;
 
@@ -186,7 +186,7 @@ class Address
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->setAdresses($this);
+            $event->setaddresses($this);
         }
 
         return $this;
@@ -196,8 +196,8 @@ class Address
     {
         if ($this->events->removeElement($event)) {
             // set the owning side to null (unless already changed)
-            if ($event->getAdresses() === $this) {
-                $event->setAdresses(null);
+            if ($event->getaddresses() === $this) {
+                $event->setaddresses(null);
             }
         }
 

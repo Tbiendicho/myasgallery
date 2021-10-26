@@ -6,6 +6,8 @@ use App\Repository\ArtistRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,26 +19,31 @@ class Artist
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"api_artists_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_artists_browse"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"api_artists_browse"})
      */
     private $biography;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_artists_browse"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=512)
+     * @Groups({"api_artists_browse"})
      */
     private $photo;
 
@@ -52,11 +59,13 @@ class Artist
 
     /**
      * @ORM\OneToMany(targetEntity=Artwork::class, mappedBy="artists")
+     * @Groups({"api_artists_browse"})
      */
     private $artworks;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artists")
+     * @Groups({"api_artists_browse"})
      */
     private $events;
 
