@@ -7,11 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+// creating a global route for Artworks BREAD
 /**
  * @Route("/api/v1/oeuvre", name="api_v1_artworks_")
  */
 class ArtworksController extends AbstractController
 {
+    // function browse is able to find a list of all artworks and return this with json
     /**
      * @Route("", name="browse", methods={"GET"})
      */
@@ -21,6 +23,7 @@ class ArtworksController extends AbstractController
         return $this->json($allArtworks, Response::HTTP_OK, [], ['groups' => 'api_artwork_browse']);
     }
 
+    // function read is able to find all informations about one artwork and return this with json
     /**
      * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
