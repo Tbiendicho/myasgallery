@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ArtworkRepository::class)
@@ -17,62 +18,86 @@ class Artwork
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=512)
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $height;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $width;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $depth;
 
     /**
      * @ORM\Column(type="string", length=1024, nullable=true)
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * 
+     * @Groups("api_artwork_browse")
      */
     private $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="artworks")
      * @ORM\JoinColumn(nullable=false)
+     * 
+     * 
      */
     private $artists;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks")
+     * 
+     * 
      */
     private $categories;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="artworks")
+     * 
+     *
      */
     private $events;
 
@@ -80,6 +105,7 @@ class Artwork
     {
         $this->categories = new ArrayCollection();
         $this->events = new ArrayCollection();
+
 
         // adding a new date for each new object, corresponding to the flush date
         $this->createdAt = new DateTimeImmutable();
