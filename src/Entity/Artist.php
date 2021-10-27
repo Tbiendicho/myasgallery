@@ -19,35 +19,35 @@ class Artist
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
     private $biography;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=512)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
     private $photo;
 
@@ -64,14 +64,12 @@ class Artist
     /**
      * @ORM\OneToMany(targetEntity=Artwork::class, mappedBy="artists")
      * 
-     * @Groups("api_event_browse")
+     * @Groups({"api_artists_browse"})
      */
     private $artworks;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artists")
-     * 
-     * @Groups("api_artwork_browse")
      */
     private $events;
 

@@ -19,49 +19,49 @@ class Artwork
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=512)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $height;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $width;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $depth;
 
     /**
      * @ORM\Column(type="string", length=1024, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $description;
 
@@ -82,23 +82,21 @@ class Artwork
     /**
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="artworks")
      * @ORM\JoinColumn(nullable=false)
-     * 
-     * @Groups("api_artwork_browse")
-     * @Groups("api_event_browse")
+     * @Groups({"api_artwork_browse", "api_event_browse"})
      */
     private $artists;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse"})
      */
     private $categories;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="artworks")
      * 
-     * @Groups("api_artwork_browse")
+     * @Groups({"api_artwork_browse", "api_artists_browse"})
      */
     private $events;
 

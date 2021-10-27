@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -17,11 +18,13 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
      */
     private $name;
 
@@ -37,6 +40,7 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="categories")
+     * @Groups({"api_event_browse", "api_artists_browse"})
      */
     private $artworks;
 
