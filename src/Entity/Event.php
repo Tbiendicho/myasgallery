@@ -49,14 +49,51 @@ class Event
      * 
      * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
-    private $localisation;
+    private $link;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="decimal", precision=18, scale=8, nullable=true)
      * 
      * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
-    private $link;
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="decimal", precision=19, scale=8, nullable=true)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
+     */
+    private $longitude;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $roadNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $roadName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $roadName2;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $zipCode;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $town;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -80,12 +117,7 @@ class Event
      */
     private $artists;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="events")
-     * 
-     * @Groups({"api_event_browse"})
-     */
-    private $addresses;
+    
 
     public function __construct()
     {
@@ -137,18 +169,6 @@ class Event
         return $this;
     }
 
-    public function getLocalisation(): ?string
-    {
-        return $this->localisation;
-    }
-
-    public function setLocalisation(?string $localisation): self
-    {
-        $this->localisation = $localisation;
-
-        return $this;
-    }
-
     public function getLink(): ?string
     {
         return $this->link;
@@ -157,6 +177,102 @@ class Event
     public function setLink(?string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?string $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?string $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getRoadNumber(): ?int
+    {
+        return $this->roadNumber;
+    }
+
+    public function setRoadNumber(?int $roadNumber): self
+    {
+        $this->roadNumber = $roadNumber;
+
+        return $this;
+    }
+
+    public function getRoadName(): ?string
+    {
+        return $this->roadName;
+    }
+
+    public function setRoadName(string $roadName): self
+    {
+        $this->roadName = $roadName;
+
+        return $this;
+    }
+
+    public function getRoadName2(): ?string
+    {
+        return $this->roadName2;
+    }
+
+    public function setRoadName2(?string $roadName2): self
+    {
+        $this->roadName2 = $roadName2;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(string $zipCode): self
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getTown(): ?string
+    {
+        return $this->town;
+    }
+
+    public function setTown(string $town): self
+    {
+        $this->town = $town;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }
@@ -232,18 +348,6 @@ class Event
     public function removeArtist(Artist $artist): self
     {
         $this->artists->removeElement($artist);
-
-        return $this;
-    }
-
-    public function getAddresses(): ?Address
-    {
-        return $this->addresses;
-    }
-
-    public function setAddresses(?Address $addresses): self
-    {
-        $this->addresses = $addresses;
 
         return $this;
     }

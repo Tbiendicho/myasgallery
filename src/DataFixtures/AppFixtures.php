@@ -19,7 +19,6 @@ class AppFixtures extends Fixture
         $categoryList = [];
         $artistsList = [];
         $artworkList = [];
-        $addressesList = [];
         $eventsList = [];
 
 
@@ -57,23 +56,6 @@ class AppFixtures extends Fixture
             $categoryList[] = $category;
         }
 
-        for ($addressNumber = 0; $addressNumber < 10; $addressNumber++) {
-            $address = new Address();
-
-            // preparing the database
-            $entityManager->persist($address);
-
-            $address->setRoadNumber($faker->numberBetween(0, 200));
-            $address->setRoadName($faker->address());
-            $address->setRoadName2($faker->address());
-            $address->setZipCode($faker->randomNumber(5, true));
-            $address->setTown($faker->city());
-            $address->setCountry($faker->country());
-
-            // add the fake data in the $eventsList table
-            $addressesList[] = $address;
-        }
-
         // generating a list of random events with faker
 
         for ($eventsNumber = 0; $eventsNumber < 10; $eventsNumber++) {
@@ -85,13 +67,15 @@ class AppFixtures extends Fixture
             $event->setName($faker->sentence(5));
             $event->setInformation($faker->text(500));
             $event->setDate($faker->dateTimeBetween('now', '+1 year'));
-            $event->setLocalisation($faker->randomFloat(7, 0, 100));
+            $event->setLatitude($faker->latitude(-90, 90));
+            $event->setLongitude($faker->longitude(-180, 180));
             $event->setLink($faker->url());
-
-            // add a random address and associate it
-            $addressOfEvent = $faker->randomElements($addressesList, '1');
-            
-            $event->setAddresses($addressOfEvent[0]->getId());
+            $event->setRoadNumber($faker->numberBetween(0, 200));
+            $event->setRoadName($faker->address());
+            $event->setRoadName2($faker->address());
+            $event->setZipCode($faker->randomNumber(5, true));
+            $event->setTown($faker->city());
+            $event->setCountry($faker->country());
 
             // add the fake data in the $eventsList table
             $eventsList[] = $event;
