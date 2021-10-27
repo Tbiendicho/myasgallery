@@ -19,42 +19,42 @@ class Event
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $information;
 
     /**
      * @ORM\Column(type="datetime")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $localisation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $link;
 
@@ -71,21 +71,19 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events")
      * 
-     * @Groups("api_event_browse")
+     * @Groups({"api_event_browse"})
      */
     private $artworks;
 
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
-     * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
      */
     private $artists;
 
     /**
      * @ORM\ManyToOne(targetEntity=Address::class, inversedBy="events")
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_event_browse"})
      */
     private $addresses;
 

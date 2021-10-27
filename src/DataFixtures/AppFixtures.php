@@ -16,11 +16,18 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $entityManager): void
     {
 
+        $categoryList = [];
+        $artistsList = [];
+        $artworkList = [];
+        $addressesList = [];
+        $eventsList = [];
+
+
         // creating a new variable faker for generating random values
         $faker = Factory::create('fr_FR');
 
         // generating a list of random artists with faker
-        $artistsList = [];
+
         for ($artistNumber = 0; $artistNumber < 10; $artistNumber++) {
             $artist = new Artist();
 
@@ -30,54 +37,26 @@ class AppFixtures extends Fixture
             $artist->setName($faker->name());
             $artist->setBiography($faker->text(500));
             $artist->setCountry($faker->country());
-            $artist->setPhoto($faker->image(null, 640, 480));
+            $imageId = $faker->numberBetween(1, 500);
+            $artist->setPhoto("https://picsum.photos/id/{$imageId}/200/300");
 
             // add the fake data in the $artistsList table
             $artistsList[] = $artist;
         }
 
-        $artworkList = [];
-         for ($artworkNumber = 0; $artworkNumber < 50; $artworkNumber++) {
-             $artwork = new Artwork();
- 
-             // preparing the database
-             $entityManager->persist($artwork);
- 
-             $artwork->setTitle($faker->words(2, true));
-             $artwork->setPicture($faker->image(null, 640, 480));
-             $artwork->setHeight($faker->numberBetween(10, 200));
-             $artwork->setWidth($faker->numberBetween(10, 200));
-             $artwork->setDepth($faker->numberBetween(10, 200));
-             $artwork->setDescription($faker->text(5));
+        // generating a list of random category with faker
+        for ($categoryNumber = 0; $categoryNumber < 5; $categoryNumber++) {
+            $category = new Category();
 
-             // get random artist
-             $artistForArtwork = $faker->randomElements($artistsList, '1');
+            // preparing the database
+            $entityManager->persist($category);
 
-             // add random artist in artists_id column
-             foreach ($artistForArtwork as $currentArtist)
-             {
-                 $artwork->setArtists($currentArtist);
-             }
+            $category->setName($faker->words(1, true));
 
-             // add the fake data in the $artworkList table
-             $artworkList[] = $artwork;
-         }
+            // add the fake data in the $categoryList table
+            $categoryList[] = $category;
+        }
 
-         // generating a list of random category with faker
-         $categoryList = [];
-         for ($categoryNumber = 0; $categoryNumber < 5; $categoryNumber++) {
-             $category = new Category();
- 
-             // preparing the database
-             $entityManager->persist($category);
- 
-             $category->setName($faker->words(1, true));
-
-             // add the fake data in the $artworkList table
-             $categoryList[] = $category;
-         }
-
-        $addressesList = [];
         for ($addressNumber = 0; $addressNumber < 10; $addressNumber++) {
             $address = new Address();
 
@@ -96,7 +75,7 @@ class AppFixtures extends Fixture
         }
 
         // generating a list of random events with faker
-        $eventsList = [];
+
         for ($eventsNumber = 0; $eventsNumber < 10; $eventsNumber++) {
             $event = new Event();
 
@@ -111,14 +90,52 @@ class AppFixtures extends Fixture
 
             // add a random address and associate it
             $addressOfEvent = $faker->randomElements($addressesList, '1');
-
-            foreach($addressOfEvent as $currentAddress) {
-                $event->setAddresses($currentAddress);
-            }
+            
+            $event->setAddresses($addressOfEvent[0]->getId());
 
             // add the fake data in the $eventsList table
             $eventsList[] = $event;
         }
+
+        for ($artworkNumber = 0; $artworkNumber < 50; $artworkNumber++) {
+             $artwork = new Artwork();
+ 
+             // preparing the database
+             $entityManager->persist($artwork);
+ 
+             $artwork->setTitle($faker->words(2, true));
+             $imageId = $faker->numberBetween(1, 500);
+             $artwork->setPicture("https://picsum.photos/id/{$imageId}/200/300");
+             $artwork->setHeight($faker->numberBetween(10, 200));
+             $artwork->setWidth($faker->numberBetween(10, 200));
+             $artwork->setDepth($faker->numberBetween(10, 200));
+             $artwork->setDescription($faker->text(5));
+
+             // get random artist
+             $artistForArtwork = $faker->randomElement($artistsList);
+
+             // add random artist in artists_id column
+
+            $artwork->setArtists($artistForArtwork);
+
+            // get random category
+            $categoryForArtwork = $faker->randomElement($categoryList);
+
+            // add random category in category_id column
+
+            $artwork->addCategory($categoryForArtwork);
+
+            // get random event
+            $eventForArtwork = $faker->randomElement($eventsList);
+
+            // add random event in event_id column
+
+            $artwork->addEvent($eventForArtwork);
+
+            // add the fake data in the $artworkList table
+            $artworkList[] = $artwork;
+
+         }
 
         // updating the database
         $entityManager->flush();
