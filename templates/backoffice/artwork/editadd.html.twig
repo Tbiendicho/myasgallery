@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtworkController!{% endblock %}
+
+{% block stylesheets %}
+    <!-- Copy CSS from https://getbootstrap.com/docs/5.0/getting-started/introduction/#css -->
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Copy JavaScript from https://getbootstrap.com/docs/5.0/getting-started/introduction/#js -->
+{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    
+   
+
+<div class="container">
+    {{ form_start(artwork_form) }}
+    {{ form_row(artwork_form.title) }}
+    {{ form_row(artwork_form.picture) }}
+    {{ form_row(artwork_form.height) }}
+    {{ form_row(artwork_form.width) }}
+    {{ form_row(artwork_form.depth) }}
+    {{ form_row(artwork_form.description) }}
+    {{ form_row(artwork_form.artists) }}
+    {{ form_row(artwork_form.createdAt) }}
+    {{ form_row(artwork_form.updatedAt) }}
+
+    <button type="submit" class="btn btn-primary mt-4">
+    {% if 'backoffice_artwork_edit' == app.request.get('_route') %}
+    edit
+    {% else %}
+    add
+    {% endif %}
+    </button>
+
+    <pre>
+        {{ dump(app.request.get('_route')) }}
+    </pre>
+    
+</div>
+    
+
+{{ form_end(artwork_form) }} 
+    
+</div>
+{% endblock %}
