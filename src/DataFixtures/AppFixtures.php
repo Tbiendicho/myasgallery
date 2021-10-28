@@ -7,15 +7,23 @@ use App\Entity\Artist;
 use App\Entity\Artwork;
 use App\Entity\Category;
 use App\Entity\Event;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher) {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $entityManager): void
     {
-
         $categoryList = [];
         $artistsList = [];
         $artworkList = [];
@@ -120,6 +128,18 @@ class AppFixtures extends Fixture
             $artworkList[] = $artwork;
 
          }
+
+        $adminUser = new User();
+        $entityManager->persist($adminUser);
+        $adminUser->setRoles(['ROLE_ADMIN']);
+        $adminUser->setEmail('admin@myasg.com');
+        $adminUser->setPassword($this->passwordHasher->hashPassword($adminUser, 'admin'));
+
+        $user = new User();
+        $entityManager->persist($user);
+        $user->setRoles(['ROLE_USER']);
+        $user->setEmail('user@myasg.com');
+        $user->setPassword($this->passwordHasher->hashPassword($user, 'user'));
 
         // updating the database
         $entityManager->flush();
