@@ -128,6 +128,11 @@ class Event
         $this->createdAt = new DateTimeImmutable();
     }
 
+    public function __toString()
+    {
+        return self::class;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
