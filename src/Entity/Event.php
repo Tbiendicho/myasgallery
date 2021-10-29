@@ -106,7 +106,7 @@ class Event
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events")
+     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events", fetch="EAGER")
      * 
      * @Groups({"api_event_browse"})
      */
@@ -130,7 +130,7 @@ class Event
 
     public function __toString()
     {
-        return self::class;
+        return $this->name;
     }
 
     public function getId(): ?int
