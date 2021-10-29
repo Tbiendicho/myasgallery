@@ -6,7 +6,14 @@
 
 <h1 class="text-center mt-5">Liste des oeuvres</h1>
 
+
+
 <div class="container">
+
+<div class="d-flex justify-content-center mt-4">
+<a href="{{ url('backoffice_artwork_add') }}" type="button" class="btn btn-success">Ajouter une oeuvre</a>
+</div>
+
     <div class="row">
 
     {% for currentArtwork in artwork_list %}
