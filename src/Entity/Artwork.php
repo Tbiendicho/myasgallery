@@ -87,14 +87,14 @@ class Artwork
     private $artists;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks", fetch="EAGER")
      * 
      * @Groups({"api_artwork_browse"})
      */
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="artworks")
+     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="artworks", fetch="EAGER")
      * 
      * @Groups({"api_artwork_browse", "api_artists_browse"})
      */

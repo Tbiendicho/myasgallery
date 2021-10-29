@@ -39,7 +39,7 @@ class Category
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="categories", fetch="EAGER")
      * @Groups({"api_event_browse", "api_artists_browse"})
      */
     private $artworks;
@@ -54,7 +54,7 @@ class Category
 
     public function __toString()
     {
-        return self::class;
+        return $this->name;
     }
 
     public function getId(): ?int
