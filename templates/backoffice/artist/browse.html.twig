@@ -4,36 +4,31 @@
 
 {% block body %}
 
-<h1 class="text-center mt-5">Liste des oeuvres</h1>
-
-
+<h1 class="text-center mt-5">Liste des artistes</h1>
 
 <div class="container">
 
 <div class="d-flex justify-content-center mt-4">
-<a href="{{ url('backoffice_artwork_add') }}" type="button" class="btn btn-success">Ajouter une oeuvre</a>
+<a href="{{ url('backoffice_artist_add') }}" type="button" class="btn btn-success">Ajouter un artiste</a>
 </div>
 
     <div class="row">
 
-    {% for currentArtwork in artwork_list %}
+    {% for currentArtist in artist_list %}
         <div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5">
             <div class="card card-1" style="width: 18rem;">
-                <a href="{{ url('backoffice_artwork_read', {"id": currentArtwork.id}) }}" ><img src="{{currentArtwork.picture}}" class="card-img-top" alt="..."></a>
+                <a href="{{ url('backoffice_artist_read', {"id": currentArtist.id}) }}" ><img src="{{currentArtist.photo}}" class="card-img-top" alt="..."></a>
                 <div class="card-body">
-                    <h5 class="card-title text-center">{{currentArtwork.title}}</h5>
-                    <p class="card-text">{{currentArtwork.description}}</p>
+                    <h5 class="card-title text-center">{{currentArtist.name}}</h5>
+                    <p class="card-text">{{currentArtist.biography}}</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Artiste : {{currentArtwork.artists}}</li>
-                </ul>
                 <div class="card-body text-center">
-                    <a href="{{ url('backoffice_artwork_edit', {"id": currentArtwork.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+                    <a href="{{ url('backoffice_artwork_edit', {"id": currentArtist.id}) }}" type="button" class="btn btn-primary">Modifier</a>
                     <div class="btn-group" role="group">
                         <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <li><a class="dropdown-item" href="{{ url('backoffice_artwork_delete', {"id": currentArtwork.id}) }}">Confimer la suppression</a></li>
-                            <li><a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a></li>
+                            <li><a class="dropdown-item" href="{{ url('backoffice_artist_delete', {"id": currentArtist.id}) }}">Confimer la suppression</a></li>
+                            <li><a class="dropdown-item" href="backoffice_artist_browse">Annuler</a></li>
                         </ul>
                     </div>
                 </div>

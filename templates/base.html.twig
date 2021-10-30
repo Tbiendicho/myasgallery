@@ -11,25 +11,25 @@
 	<body>
 		{% block header %}
 			<header>
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<nav class="navbar navbar-expand-lg navbar-light bg-dark">
 					<div class="container-fluid">
-						<a class="navbar-brand" href="{{ url('backoffice_artwork_browse') }}">Myas Gallery Backoffice</a>
-						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<a class="navbar-brand text-warning" href="{{ url('backoffice_artwork_browse') }}">Myas Gallery Backoffice</a>
+						<button class="navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       						<span class="navbar-toggler-icon"></span>
     					</button>
 						<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 							<ul class="navbar-nav">
 								<li class="nav-item">
-									<a class="nav-link {% if app.request.get('_route') == 'backoffice_artwork_browse' %}active{% endif %}" href="{{ url('backoffice_artwork_browse') }}">Oeuvres</a>
+									<a class="text-warning nav-link {% if app.request.get('_route') == 'backoffice_artwork_browse' %}text-decoration-underline{% endif %}" href="{{ url('backoffice_artwork_browse') }}">Oeuvres</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">Artistes</a>
+									<a class="text-warning nav-link {% if app.request.get('_route') == 'backoffice_artist_browse' %}text-decoration-underline{% endif %}" href="{{ url('backoffice_artist_browse') }}">Artistes</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">Categories</a>
+									<a class="text-warning nav-link" href="#">Categories</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="#">Evénements</a>
+									<a class="text-warning nav-link" href="#">Evénements</a>
 								</li>
 							</ul>
 						</div>
