@@ -8,6 +8,8 @@
 
 <div class="container">
 
+{{ include('_partials/_flash_messages.html.twig') }}
+
 <div class="d-flex justify-content-center mt-4">
 <a href="{{ url('backoffice_artist_add') }}" type="button" class="btn btn-success">Ajouter un artiste</a>
 </div>
@@ -18,12 +20,12 @@
         <div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5">
             <div class="card card-1" style="width: 18rem;">
                 <a href="{{ url('backoffice_artist_read', {"id": currentArtist.id}) }}" ><img src="{{currentArtist.photo}}" class="card-img-top" alt="..."></a>
-                <div class="card-body">
+                <div class="card-body" style="height: 13em; overflow: hidden; overflow-y: scroll;">
                     <h5 class="card-title text-center">{{currentArtist.name}}</h5>
                     <p class="card-text">{{currentArtist.biography}}</p>
                 </div>
                 <div class="card-body text-center">
-                    <a href="{{ url('backoffice_artwork_edit', {"id": currentArtist.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+                    <a href="{{ url('backoffice_artist_edit', {"id": currentArtist.id}) }}" type="button" class="btn btn-primary">Modifier</a>
                     <div class="btn-group" role="group">
                         <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">

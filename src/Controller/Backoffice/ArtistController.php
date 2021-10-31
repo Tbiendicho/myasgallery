@@ -42,7 +42,7 @@ class ArtistController extends AbstractController
     /**
      * @Route("edit/{id}", name="edit", methods={"GET", "POST"}, requirements={"id"="\d+"})
      */
-    public function edit(Request $request, $artist): Response
+    public function edit(Request $request,Artist $artist): Response
     {
         $artistForm = $this->createForm(ArtistType::class, $artist);
         $artistForm->handleRequest($request);
@@ -53,7 +53,7 @@ class ArtistController extends AbstractController
             $artist->setUpdatedAt(new DateTimeImmutable());
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'artiste {$artist->getName()}` a bien été mis à jour");
+            $this->addFlash('success', "L'artiste {$artist->getName()} a bien été mis à jour");
 
             return $this->redirectToRoute('backoffice_artist_browse');
         }
@@ -80,7 +80,7 @@ class ArtistController extends AbstractController
             $entityManager->persist($artist);
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'artiste {$artist->getName()}` a bien été ajouté");
+            $this->addFlash('success', "L'artiste {$artist->getName()} a bien été ajouté");
 
             return $this->redirectToRoute('backoffice_artist_browse');
         }
@@ -99,7 +99,7 @@ class ArtistController extends AbstractController
         $entityManager->remove($artist);
         $entityManager->flush();
 
-        $this->addFlash('success', "L\'artiste {$artist->getName()}` a bien été supprimé");
+        $this->addFlash('success', "L'artiste {$artist->getName()} a bien été supprimé");
 
         return $this->redirectToRoute('backoffice_artist_browse');
     }

@@ -3,4 +3,6 @@
     transition: all 0.6s cubic-bezier(.25,.8,.25,1);
   }
 
-  
+body {
+  padding-bottom: 5em;
+}
