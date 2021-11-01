@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if 'backoffice_event_edit' == app.request.get('_route') %}
+    Mettre à jour
+    {% else %}
+    Ajouter
+    {% endif %}
+{% endblock title %}
+
+{% block body %}
+
+{{ form_start(event_form) }}
+
+<div class="d-flex p-2 d-flex justify-content-center mt-5">
+
+    <div class="mx-5">
+
+        {{ form_row(event_form.name) }}
+        {{ form_row(event_form.information) }}
+        {{ form_row(event_form.date) }}
+        {{ form_row(event_form.link) }}
+        {{ form_row(event_form.latitude) }}
+        {{ form_row(event_form.longitude) }} 
+        {{ form_row(event_form.artworks) }}
+
+    </div>
+
+    <div class="mx-5">
+
+        {{ form_row(event_form.roadnumber) }}
+        {{ form_row(event_form.roadname) }}
+        {{ form_row(event_form.roadname2) }}
+        {{ form_row(event_form.zipcode) }}
+        {{ form_row(event_form.town) }}
+        {{ form_row(event_form.country) }}
+        {{ form_row(event_form.artists) }}
+
+    </div>
+
+        
+</div>
+
+<div class="text-center">
+                <p>* Champs obligatoire</p>
+        <button type="submit" class="btn btn-primary mt-4">
+        {% if 'backoffice_event_edit' == app.request.get('_route') %}
+        Mettre à jour
+        {% else %}
+        Ajouter
+        {% endif %}
+        </button>
+</div>
+
+    {{ form_end(event_form) }} 
+    
+
+
+{% endblock %}

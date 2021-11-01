@@ -117,8 +117,6 @@ class Event
      */
     private $artists;
 
-    
-
     public function __construct()
     {
         $this->artworks = new ArrayCollection();

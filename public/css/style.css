@@ -3,4 +3,11 @@
     transition: all 0.6s cubic-bezier(.25,.8,.25,1);
   }
 
+.event-name {
+  height: 5em;
+}
+
+body {
+  padding-bottom: 5em;
+}
   
