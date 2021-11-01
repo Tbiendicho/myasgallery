@@ -96,8 +96,8 @@ class ArtworkController extends AbstractController
         /**
          * @Route("delete/{id}", name="delete", methods={"GET"}, requirements={"id"="\d+"})
          */
-        public function delete(Artwork $artwork, EntityManagerInterface $entityManager): Response {
-            
+        public function delete(Artwork $artwork, EntityManagerInterface $entityManager): Response 
+        {
             $entityManager->remove($artwork);
             $entityManager->flush();
 

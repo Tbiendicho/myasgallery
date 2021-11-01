@@ -82,6 +82,7 @@ class Artwork
     /**
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="artworks")
      * @ORM\JoinColumn(nullable=false)
+     * 
      * @Groups({"api_artwork_browse", "api_event_browse"})
      */
     private $artists;
