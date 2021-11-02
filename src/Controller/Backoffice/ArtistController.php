@@ -30,7 +30,7 @@ class ArtistController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function read(Artist $artist): Response
     {

@@ -62,7 +62,7 @@ class Artist
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Artwork::class, mappedBy="artists",)
+     * @ORM\OneToMany(targetEntity=Artwork::class, mappedBy="artists", orphanRemoval="true")
      * 
      * @Groups({"api_artists_browse"})
      */
