@@ -1,24 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArtworkController!{% endblock %}
+{% block title %}{{current_artwork.title}}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    
+<h1 class="text-center mt-5">{{current_artwork.title}}</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/projet/projet-galerie-art/src/Controller/Backoffice/ArtworkController.php'|file_link(0) }}">src/Controller/Backoffice/ArtworkController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/projet/projet-galerie-art/templates/backoffice/artwork/index.html.twig'|file_link(0) }}">templates/backoffice/artwork/index.html.twig</a></code></li>
-    </ul>
-    <pre>
-        {{ dump(current_artwork) }}
-    </pre>
-    
-</div>
+	<div class="container">
+
+        <div class="d-flex justify-content-center mt-5">
+            <div class="card card-1" style="width: 18rem;">
+                <img src="{{current_artwork.picture}}" class="card-img-top" alt="..."></a>
+                <div class="card-body">
+                    <p class="card-text">{{current_artwork.description}}</p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">Artiste : {{current_artwork.artists}}</li>
+                </ul>
+                <div class="card-body text-center">
+                    <a href="{{ url('backoffice_artwork_edit', {"id": current_artwork.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <li><a class="dropdown-item" href="{{ url('backoffice_artwork_delete', {"id": current_artwork.id}) }}">Confimer la suppression</a></li>
+                            <li><a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<div class="card mb-3 card-1 mt-5 mx-auto" style="max-width: 576px;">
+			<div class="d-flex">
+				<div class="col-md-4 col-sm-1">
+					<img src="{{ current_artist.photo }}" class="img-fluid rounded-start" alt="...">
+				</div>
+				<div class="col-md-8">
+					<div class="card-body" style="height: 17em; overflow: hidden; overflow-y: scroll;">
+						<h5 class="card-title">A propos de l'artiste</h5>
+						<p class="card-text readMore">Originaire de
+							{{ current_artist.country}},
+							{{ current_artist.name }}
+							{{ current_artist.biography }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 {% endblock %}

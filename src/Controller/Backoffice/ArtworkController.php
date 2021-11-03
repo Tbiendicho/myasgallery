@@ -2,6 +2,7 @@
 
 namespace App\Controller\Backoffice;
 
+use App\Entity\Artist;
 use App\Entity\Artwork;
 use App\Form\ArtworkType;
 use App\Repository\ArtworkRepository;
@@ -30,10 +31,11 @@ class ArtworkController extends AbstractController
     /**
      * @Route("{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(Artwork $artwork): Response
+    public function read(Artwork $artwork, Artist $artist): Response
     {
         return $this->render('backoffice/artwork/read.html.twig', [
             'current_artwork' => $artwork,
+            'current_artist' => $artist,
         ]);
     }
 
