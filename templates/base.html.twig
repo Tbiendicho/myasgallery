@@ -26,7 +26,7 @@
 									<a class="text-warning nav-link {% if app.request.get('_route') == 'backoffice_artist_browse' %}text-decoration-underline{% endif %}" href="{{ url('backoffice_artist_browse') }}">Artistes</a>
 								</li>
 								<li class="nav-item">
-									<a class="text-warning nav-link" href="#">Categories</a>
+									<a class="text-warning nav-link {% if app.request.get('_route') == 'backoffice_category_browse' %}text-decoration-underline{% endif %}" href="{{ url('backoffice_category_browse') }}">Categories</a>
 								</li>
 								<li class="nav-item">
 									<a class="text-warning nav-link {% if app.request.get('_route') == 'backoffice_event_browse' %}text-decoration-underline{% endif %}" href="{{ url('backoffice_event_browse') }}">Evénements</a>

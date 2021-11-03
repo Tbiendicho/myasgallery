@@ -87,7 +87,7 @@ class ArtistController extends AbstractController
         
         return $this->render('backoffice/artist/editadd.html.twig', [
             'artist_form' => $artistForm->createView(),
-            'page' => 'edit',
+            'page' => 'add',
         ]);
     }
 
