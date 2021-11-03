@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
     {
         $category = new Category;
 
-        $categoryForm = $this->createForm(ArtistType::class, $category);
+        $categoryForm = $this->createForm(CategoryType::class, $category);
         $categoryForm->handleRequest($request);
 
         if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
@@ -85,7 +85,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('backoffice_category_browse');
         }
         
-        return $this->render('backoffice/artist/editadd.html.twig', [
+        return $this->render('backoffice/category/editadd.html.twig', [
             'category_form' => $categoryForm->createView(),
             'page' => 'add',
         ]);

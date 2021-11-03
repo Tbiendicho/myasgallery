@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {% if 'backoffice_artist_edit' == app.request.get('_route') %}
+    {% if 'backoffice_category_edit' == app.request.get('_route') %}
     Mettre à jour
     {% else %}
     Ajouter
@@ -10,22 +10,19 @@
 
 {% block body %}
 
-<h1 class="text-center mt-5">{% if 'backoffice_artist_edit' == app.request.get('_route') %}
+<h1 class="text-center mt-5">{% if 'backoffice_category_edit' == app.request.get('_route') %}
     Mettre à jour
     {% else %}
     Ajouter
     {% endif %}</h1>
 
-{{ form_start(artist_form) }}
+{{ form_start(category_form) }}
 
 <div class="d-flex p-2 d-flex justify-content-center mt-5">
 
     <div class="mx-5">
 
-        {{ form_row(artist_form.name) }}
-        {{ form_row(artist_form.photo) }}
-        {{ form_row(artist_form.biography) }}
-        {{ form_row(artist_form.country) }}
+        {{ form_row(category_form.name) }}
 
     </div>
         
@@ -34,7 +31,7 @@
 <div class="text-center">
                 <p>* Champs obligatoire</p>
         <button type="submit" class="btn btn-primary mt-4">
-        {% if 'backoffice_artist_edit' == app.request.get('_route') %}
+        {% if 'backoffice_category_edit' == app.request.get('_route') %}
         Mettre à jour
         {% else %}
         Ajouter
@@ -42,7 +39,7 @@
         </button>
 </div>
 
-    {{ form_end(artist_form) }} 
+    {{ form_end(category_form) }} 
     
 
 

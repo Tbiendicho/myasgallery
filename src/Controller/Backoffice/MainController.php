@@ -7,12 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/backoffice/", name="backoffice_main")
+ * @Route("/backoffice/", name="backoffice_main_")
  */
 class MainController extends AbstractController
 {
     /**
-     * @Route("", name="backoffice_main_show", methods={"GET"})
+     * @Route("", name="show", methods={"GET"})
      */
     public function show(): Response
     {

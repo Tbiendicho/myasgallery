@@ -12,11 +12,13 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('artworks')
-        ;
+            ->add('name', null, [
+                'label' => 'Nom de la catégorie*',
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Saisir un nom'
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
