@@ -6,3 +6,8 @@
 body {
   padding-bottom: 5em;
 }
+
+.main-img {
+  width: 50px;
+  height: 280px;
+}
