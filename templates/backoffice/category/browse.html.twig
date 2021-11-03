@@ -20,18 +20,33 @@
 			</a>
 		</div>
 
-		<div class="row">
-
+		<div class="row justify-content-center">
 			{% for currentCategory in category_list %}
-				<div class="card bg-dark text-white m-3 align-items-center" style="width: 37em;">
-					<img src="https://cdn.pixabay.com/photo/2021/07/04/19/58/sunset-6387462_960_720.jpg" class="card-img" alt="...">
-					<div class="card-img-overlay">
-						<a href="{{ url('backoffice_category_read', {"id": currentCategory.id}) }}" class="text-reset"><h2 class="card-title text-uppercase text-center">{{ currentCategory.name }}</h5></a>
+
+				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5">
+					<div class="card card-1" style="width: 18rem;">
+						<a href="{{ url('backoffice_category_read', {"id": currentCategory.id}) }}"><img src="https://cdn.pixabay.com/photo/2016/12/01/09/09/paint-1874762_960_720.jpg" class="card-img-top" alt="..."></a>
+						<div class="card-body">
+							<h5 class="card-title text-center">{{currentCategory.name}}</h5>
+						</div>
+						<div class="card-body text-center">
+							<a href="{{ url('backoffice_category_edit', {"id": currentCategory.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+							<div class="btn-group" role="group">
+								<button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
+								<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+									<li>
+										<a class="dropdown-item" href="{{ url('backoffice_category_delete', {"id": currentCategory.id}) }}">Confimer la suppression</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a>
+									</li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			{% endfor %}
 
 		</div>
-	</div>
 
-{% endblock %}
+	{% endblock %}
