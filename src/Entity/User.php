@@ -90,6 +90,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function convertRoles(array $roles)
+    {
+        $this->roles = implode(', ', $roles);
+        return $this->roles;
+    }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */

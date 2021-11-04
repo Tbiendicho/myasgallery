@@ -11,9 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/backoffice/categorie/", name="backoffice_category_")
+ * @IsGranted("ROLE_CATALOG_MANAGER")
  */
 class CategoryController extends AbstractController
 {
@@ -53,7 +55,7 @@ class CategoryController extends AbstractController
             $category->setUpdatedAt(new DateTimeImmutable());
             $entityManager->flush();
 
-            $this->addFlash('success', "La catégorie {$category->getName()} a bien été mis à jour");
+            $this->addFlash('success', "La catégorie {$category->getName()} a bien été mise à jour");
 
             return $this->redirectToRoute('backoffice_category_browse');
         }
@@ -80,7 +82,7 @@ class CategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
-            $this->addFlash('success', "La catégorie {$category->getName()} a bien été ajouté");
+            $this->addFlash('success', "La catégorie {$category->getName()} a bien été ajoutée");
 
             return $this->redirectToRoute('backoffice_category_browse');
         }
@@ -99,7 +101,7 @@ class CategoryController extends AbstractController
         $entityManager->remove($category);
         $entityManager->flush();
 
-        $this->addFlash('success', "La catégorie {$category->getName()} a bien été supprimé");
+        $this->addFlash('success', "La catégorie {$category->getName()} a bien été supprimée");
 
         return $this->redirectToRoute('backoffice_category_browse');
     }
