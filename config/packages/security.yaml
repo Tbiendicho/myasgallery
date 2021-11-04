@@ -14,6 +14,17 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
+        main:
+            lazy: true
+            provider: app_user_provider
+            form_login:
+                # "login" is the name of the route created previously
+                login_path: login
+                check_path: login
+                default_target_path: /backoffice/
+            logout:
+                path: app_logout
+                target: login
         secured_area:
             form_login:
                 enable_csrf: true
@@ -31,16 +42,7 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            lazy: true
-            provider: app_user_provider
-            form_login:
-                # "login" is the name of the route created previously
-                login_path: login
-                check_path: login
-            logout:
-                path: app_logout
-                target: login
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -57,6 +59,6 @@ security:
         # - { path: ^/backoffice, roles: ROLE_ADMIN }
 
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_PRODUCT_MANAGER]
+        ROLE_ADMIN: [ROLE_CATALOG_MANAGER]
         ROLE_CATALOG_MANAGER:  [ROLE_USER]
         ROLE_USER:  [ROLE_USER_BROWSE, ROLE_USER_READ]

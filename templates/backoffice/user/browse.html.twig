@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+	<h1 class="text-center mt-5">Liste des utilisateurs enregistrés</h1>
+
+	<div class="text-center mt-4">
+
+		<a href="{{ url('user_add') }}" type="button" class="btn btn-success">Ajouter un utilisateur</a>
+
+	</div>
+
+	<div class="container mt-5">
+
+		{{ include('_partials/_flash_messages.html.twig') }}
+
+		<table class="table table-striped text-center">
+			<thead>
+				<tr>
+					<th scope="col">Email</th>
+					<th scope="col">Statut</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for currentUser in user_list %}
+					<tr>
+						<td>{{ currentUser.getEmail }}</td>
+						<td>{{ currentUser.convertRoles(currentUser.getRoles) }}</td>
+						<td>
+							<a href="{{ url('user_edit', {"id": currentUser.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+							<button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
+							<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+								<li>
+									<a class="dropdown-item" href="{{ url('user_delete', {"id": currentUser.id}) }}">Confimer la suppression</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="user_browse">Annuler</a>
+								</li>
+							</td>
+						{% endfor %}
+					</tr>
+				</tbody>
+			</tbody>
+		</table>
+
+	{% endblock %}
