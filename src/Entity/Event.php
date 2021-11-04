@@ -67,31 +67,43 @@ class Event
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $roadNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $roadName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $roadName2;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $zipCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $town;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $country;
 
@@ -114,6 +126,8 @@ class Event
 
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
+     * 
+     * @Groups({"api_event_browse"})
      */
     private $artists;
 
