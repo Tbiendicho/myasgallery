@@ -2,7 +2,6 @@
 
 namespace App\Controller\Backoffice;
 
-use App\Entity\Artist;
 use App\Entity\Artwork;
 use App\Form\ArtworkType;
 use App\Repository\ArtworkRepository;
@@ -31,11 +30,10 @@ class ArtworkController extends AbstractController
     /**
      * @Route("{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(Artwork $artwork, Artist $artist): Response
+    public function read(Artwork $artwork): Response
     {
         return $this->render('backoffice/artwork/read.html.twig', [
             'current_artwork' => $artwork,
-            'current_artist' => $artist,
         ]);
     }
 
@@ -55,7 +53,7 @@ class ArtworkController extends AbstractController
             $artwork->setUpdatedAt(new DateTimeImmutable());
             $entityManager->flush();
 
-            $this->addFlash('success', "L'oeuvre {$artwork->getTitle()} a bien été mise à jour");
+            $this->addFlash('success', "L\'oeuvre `{$artwork->getTitle()}` a bien été mise à jour");
 
             // Redirecting the user to be sure that the edition was done once
             return $this->redirectToRoute('backoffice_artwork_browse');
@@ -83,7 +81,7 @@ class ArtworkController extends AbstractController
             $entityManager->persist($artwork);
             $entityManager->flush();
 
-            $this->addFlash('success', "L'oeuvre {$artwork->getTitle()} a bien été ajoutée");
+            $this->addFlash('success', "L\'oeuvre `{$artwork->getTitle()}` a bien été ajoutée");
 
             // Redirecting the user to be sure that the adding was done once
             return $this->redirectToRoute('backoffice_artwork_browse');
@@ -103,7 +101,7 @@ class ArtworkController extends AbstractController
             $entityManager->remove($artwork);
             $entityManager->flush();
 
-            $this->addFlash('success', "L'oeuvre {$artwork->getTitle()} a bien été supprimée");
+            $this->addFlash('success', "L\'oeuvre `{$artwork->getTitle()}` a bien été supprimée");
             
             return $this->redirectToRoute('backoffice_artwork_browse');
         }

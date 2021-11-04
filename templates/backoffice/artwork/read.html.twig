@@ -33,15 +33,15 @@
 		<div class="card mb-3 card-1 mt-5 mx-auto" style="max-width: 576px;">
 			<div class="d-flex">
 				<div class="col-md-4 col-sm-1">
-					<img src="{{ current_artist.photo }}" class="img-fluid rounded-start" alt="...">
+					<a href="{{ url('backoffice_artist_read', {"id": current_artwork.artists.id}) }}" ><img src="{{ current_artwork.artists.photo }}" class="img-fluid rounded-start" alt="..."></a>
 				</div>
 				<div class="col-md-8">
 					<div class="card-body" style="height: 17em; overflow: hidden; overflow-y: scroll;">
 						<h5 class="card-title">A propos de l'artiste</h5>
 						<p class="card-text readMore">Originaire de
-							{{ current_artist.country}},
-							{{ current_artist.name }}
-							{{ current_artist.biography }}</p>
+							{{ current_artwork.artists.country}},
+							{{ current_artwork.artists.name }}
+							{{ current_artwork.artists.biography }}</p>
 					</div>
 				</div>
 			</div>
