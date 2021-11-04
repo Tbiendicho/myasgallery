@@ -117,6 +117,11 @@ class Event
      */
     private $artists;
 
+    /**
+     * @ORM\Column(type="string", length=512, nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->artworks = new ArrayCollection();
@@ -351,6 +356,18 @@ class Event
     public function removeArtist(Artist $artist): self
     {
         $this->artists->removeElement($artist);
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

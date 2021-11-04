@@ -59,6 +59,8 @@ class AppFixtures extends Fixture
             $entityManager->persist($category);
 
             $category->setName($faker->words(1, true));
+            $imageId = $faker->numberBetween(1, 500);
+            $category->setPicture("https://picsum.photos/id/{$imageId}/200/200");
 
             // add the fake data in the $categoryList table
             $categoryList[] = $category;
@@ -84,6 +86,8 @@ class AppFixtures extends Fixture
             $event->setZipCode($faker->randomNumber(5, true));
             $event->setTown($faker->city());
             $event->setCountry($faker->country());
+            $imageId = $faker->numberBetween(1, 500);
+            $event->setPicture("https://picsum.photos/id/{$imageId}/200/300");
 
             // add the fake data in the $eventsList table
             $eventsList[] = $event;
