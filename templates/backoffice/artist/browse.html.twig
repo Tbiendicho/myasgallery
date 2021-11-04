@@ -20,10 +20,10 @@
 			</a>
 		</div>
 
-		<div class="row">
+		<div class="row justify-content-center">
 
 			{% for currentArtist in artist_list %}
-				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5">
+				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5" style="width: auto;">
 					<div class="card card-1" style="width: 18rem;">
 						<a href="{{ url('backoffice_artist_read', {"id": currentArtist.id}) }}"><img src="{{currentArtist.photo}}" class="card-img-top" alt="..."></a>
 						<div class="card-body" style="height: 13em; overflow: hidden; overflow-y: scroll;">

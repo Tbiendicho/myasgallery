@@ -44,6 +44,11 @@ class Category
      */
     private $artworks;
 
+    /**
+     * @ORM\Column(type="string", length=512, nullable=true)
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->artworks = new ArrayCollection();
@@ -121,6 +126,18 @@ class Category
         if ($this->artworks->removeElement($artwork)) {
             $artwork->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

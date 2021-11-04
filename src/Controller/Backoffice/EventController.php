@@ -11,9 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/backoffice/evenement/", name="backoffice_event_")
+ * @IsGranted("ROLE_CATALOG_MANAGER")
  */
 class EventController extends AbstractController
 {
@@ -53,7 +55,7 @@ class EventController extends AbstractController
             $event->setUpdatedAt(new DateTimeImmutable());
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'oeuvre `{$event->getName()}` a bien été mise à jour");
+            $this->addFlash('success', "L'événement {$event->getName()} a bien été mis à jour");
 
             // Redirecting the user to be sure that the edition was done once
             return $this->redirectToRoute('backoffice_event_browse');
@@ -81,7 +83,7 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'oeuvre `{$event->getName()}` a bien été ajoutée");
+            $this->addFlash('success', "L'événement {$event->getName()} a bien été ajouté");
 
             // Redirecting the user to be sure that the adding was done once
             return $this->redirectToRoute('backoffice_event_browse');
@@ -101,7 +103,7 @@ class EventController extends AbstractController
             $entityManager->remove($event);
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'oeuvre `{$event->getName()}` a bien été supprimée");
+            $this->addFlash('success', "L'événement {$event->getName()} a bien été supprimé");
             
             return $this->redirectToRoute('backoffice_event_browse');
         }

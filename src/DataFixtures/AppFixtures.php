@@ -18,7 +18,8 @@ class AppFixtures extends Fixture
 
     private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher) {
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
         $this->passwordHasher = $passwordHasher;
     }
 
@@ -38,7 +39,7 @@ class AppFixtures extends Fixture
         for ($artistNumber = 0; $artistNumber < 10; $artistNumber++) {
             $artist = new Artist();
 
-        // preparing the database
+            // preparing the database
             $entityManager->persist($artist);
 
             $artist->setName($faker->name());
@@ -59,6 +60,8 @@ class AppFixtures extends Fixture
             $entityManager->persist($category);
 
             $category->setName($faker->words(1, true));
+            $imageId = $faker->numberBetween(1, 500);
+            $category->setPicture("https://picsum.photos/id/{$imageId}/200/200");
 
             // add the fake data in the $categoryList table
             $categoryList[] = $category;
@@ -84,29 +87,36 @@ class AppFixtures extends Fixture
             $event->setZipCode($faker->randomNumber(5, true));
             $event->setTown($faker->city());
             $event->setCountry($faker->country());
+            $imageId = $faker->numberBetween(1, 500);
+            $event->setPicture("https://picsum.photos/id/{$imageId}/200/300");
+
+            // get random artist
+            $artistForEvent = $faker->randomElement($artistsList);
+            // add random artist in artist_id column
+            $event->addArtist($artistForEvent);
 
             // add the fake data in the $eventsList table
             $eventsList[] = $event;
         }
 
         for ($artworkNumber = 0; $artworkNumber < 50; $artworkNumber++) {
-             $artwork = new Artwork();
- 
-             // preparing the database
-             $entityManager->persist($artwork);
- 
-             $artwork->setTitle($faker->words(2, true));
-             $imageId = $faker->numberBetween(1, 500);
-             $artwork->setPicture("https://picsum.photos/id/{$imageId}/200/300");
-             $artwork->setHeight($faker->numberBetween(10, 200));
-             $artwork->setWidth($faker->numberBetween(10, 200));
-             $artwork->setDepth($faker->numberBetween(10, 200));
-             $artwork->setDescription($faker->text(5));
+            $artwork = new Artwork();
 
-             // get random artist
-             $artistForArtwork = $faker->randomElement($artistsList);
+            // preparing the database
+            $entityManager->persist($artwork);
 
-             // add random artist in artists_id column
+            $artwork->setTitle($faker->words(2, true));
+            $imageId = $faker->numberBetween(1, 500);
+            $artwork->setPicture("https://picsum.photos/id/{$imageId}/200/300");
+            $artwork->setHeight($faker->numberBetween(10, 200));
+            $artwork->setWidth($faker->numberBetween(10, 200));
+            $artwork->setDepth($faker->numberBetween(10, 200));
+            $artwork->setDescription($faker->text(5));
+
+            // get random artist
+            $artistForArtwork = $faker->randomElement($artistsList);
+
+            // add random artist in artists_id column
 
             $artwork->setArtists($artistForArtwork);
 
@@ -126,8 +136,7 @@ class AppFixtures extends Fixture
 
             // add the fake data in the $artworkList table
             $artworkList[] = $artwork;
-
-         }
+        }
 
         $adminUser = new User();
         $entityManager->persist($adminUser);
@@ -141,9 +150,13 @@ class AppFixtures extends Fixture
         $user->setEmail('user@myasg.com');
         $user->setPassword($this->passwordHasher->hashPassword($user, 'user'));
 
+        $catalogManager = new User();
+        $entityManager->persist($catalogManager);
+        $catalogManager->setRoles(['ROLE_CATALOG_MANAGER']);
+        $catalogManager->setEmail('catalog@myasg.com');
+        $catalogManager->setPassword($this->passwordHasher->hashPassword($catalogManager, 'catalog'));
+
         // updating the database
         $entityManager->flush();
-        
     }
-    
 }

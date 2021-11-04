@@ -67,31 +67,43 @@ class Event
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $roadNumber;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $roadName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $roadName2;
 
     /**
      * @ORM\Column(type="string", length=20)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $zipCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $town;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $country;
 
@@ -106,7 +118,7 @@ class Event
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events", fetch="EAGER", cascade={"persist"})
      * 
      * @Groups({"api_event_browse"})
      */
@@ -114,8 +126,15 @@ class Event
 
     /**
      * @ORM\ManyToMany(targetEntity=Artist::class, inversedBy="events")
+     * 
+     * @Groups({"api_event_browse"})
      */
     private $artists;
+
+    /**
+     * @ORM\Column(type="string", length=512, nullable=true)
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -351,6 +370,18 @@ class Event
     public function removeArtist(Artist $artist): self
     {
         $this->artists->removeElement($artist);
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

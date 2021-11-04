@@ -3,22 +3,126 @@
 {% block title %}Hello ArtworkController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    
+<h1 class="text-center mt-5">{{ current_event.name }}</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/projet/projet-galerie-art/src/Controller/Backoffice/ArtworkController.php'|file_link(0) }}">src/Controller/Backoffice/ArtworkController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/projet/projet-galerie-art/templates/backoffice/artwork/index.html.twig'|file_link(0) }}">templates/backoffice/artwork/index.html.twig</a></code></li>
-    </ul>
-    <pre>
-        {{ dump(current_event) }}
-    </pre>
-    
+<div class="container">
+    <div class="d-flex justify-content-center mt-5">
+        <div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-2">
+            <div class="card card-1" style="width: 18rem;">
+                <a href="{{ url('backoffice_event_read', {"id": current_event.id}) }}" ><img src="{{current_event.picture}}" class="card-img-top" alt="..."></a>
+                
+                <div class="card-body">
+                    <p class="card-text">{{current_event.information}}</p>
+                </div>
+                
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">Date : {{current_event.date.format('d/m/Y')}}</li>
+                    {# <li class="list-group-item">Ville : {{currentEvent.town}}</li> #}
+                </ul>
+                <div class="card-body text-center">
+                    <a href="{{ url('backoffice_event_edit', {"id": current_event.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <li><a class="dropdown-item" href="{{ url('backoffice_event_delete', {"id": current_event.id}) }}">Confimer la suppression</a></li>
+                            <li><a class="dropdown-item" href="backoffice_event_browse">Annuler</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+		<h2 style="text-align:center; margin-top:2em;">Toutes Les oeuvres exposées</h2>
+	</div>
+
+    <div class="row mx-auto ms-1">
+			{% for artwork in current_event.artworks %}
+				<div class="mx-auto col-xl-4 col-lg-4 col-xxl-3 col-md-6 col-sm-6">
+					<div class="mt-5">
+						<div class="card card-1" style="width: 18rem;">
+							<a href="{{ url('backoffice_artwork_read', {"id": artwork.id}) }}"><img src="{{artwork.picture}}" class="card-img-top" alt="..."></a>
+							<div class="card-body">
+								<h5 class="card-title text-center">{{artwork.title}}</h5>
+								<p class="card-text">Description/Particularité:
+									{{artwork.description}}</p>
+							</div>
+							<div class="card-body text-center">
+								<a href="{{ url('backoffice_artwork_edit', {"id": artwork.id}) }}" type="button" class="btn btn-primary">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+										<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+										<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+									</svg>
+								</a>
+								<div class="btn-group" role="group">
+									<button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 10.47L12 12.59l-2.13-2.12-1.41 1.41L10.59 14l-2.12 2.12 1.41 1.41L12 15.41l2.12 2.12 1.41-1.41L13.41 14l2.12-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg>
+									</button>
+									<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										<li>
+											<a class="dropdown-item" href="{{ url('backoffice_artwork_delete', {"id": artwork.id}) }}">Confimer la suppression</a>
+										</li>
+										<li>
+											<a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+
+    {# {% if current_event.artists !== null %} #}
+
+        <div>
+		<h2 style="text-align:center; margin-top:2em;">Tous les artistes exposés</h2>
+	    </div>
+
+        <div class="row mx-auto ms-1">
+            {% for artist in current_event.artists %}
+                <div class="mx-auto col-xl-4 col-lg-4 col-xxl-3 col-md-6 col-sm-6">
+                    <div class="mt-5">
+                        <div class="card card-1" style="width: 18rem;">
+                            <a href="{{ url('backoffice_artwork_read', {"id": artist.id}) }}"><img src="{{artist.photo}}" class="card-img-top" alt="..."></a>
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{artist.name}}</h5>
+                                <p class="card-text">Description/Particularité:
+                                    {{artist.biography}}</p>
+                            </div>
+                            <div class="card-body text-center">
+                                <a href="{{ url('backoffice_artist_edit', {"id": artist.id}) }}" type="button" class="btn btn-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>
+                                </a>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewbox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.12 10.47L12 12.59l-2.13-2.12-1.41 1.41L10.59 14l-2.12 2.12 1.41 1.41L12 15.41l2.12 2.12 1.41-1.41L13.41 14l2.12-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ url('backoffice_artist_delete', {"id": artist.id}) }}">Confimer la suppression</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="backoffice_artist_browse">Annuler</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    {# {% endif %} #}
+
 </div>
+
 {% endblock %}

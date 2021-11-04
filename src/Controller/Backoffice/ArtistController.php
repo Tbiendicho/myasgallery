@@ -11,9 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/backoffice/artiste/", name="backoffice_artist_")
+ * @IsGranted("ROLE_CATALOG_MANAGER")
  */
 class ArtistController extends AbstractController
 {
@@ -87,7 +89,7 @@ class ArtistController extends AbstractController
         
         return $this->render('backoffice/artist/editadd.html.twig', [
             'artist_form' => $artistForm->createView(),
-            'page' => 'edit',
+            'page' => 'add',
         ]);
     }
 
