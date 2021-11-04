@@ -53,7 +53,7 @@ class EventController extends AbstractController
             $event->setUpdatedAt(new DateTimeImmutable());
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'oeuvre `{$event->getName()}` a bien été mise à jour");
+            $this->addFlash('success', "L'événement {$event->getName()} a bien été mis à jour");
 
             // Redirecting the user to be sure that the edition was done once
             return $this->redirectToRoute('backoffice_event_browse');
@@ -81,7 +81,7 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'oeuvre `{$event->getName()}` a bien été ajoutée");
+            $this->addFlash('success', "L'événement {$event->getName()} a bien été ajouté");
 
             // Redirecting the user to be sure that the adding was done once
             return $this->redirectToRoute('backoffice_event_browse');
@@ -101,7 +101,7 @@ class EventController extends AbstractController
             $entityManager->remove($event);
             $entityManager->flush();
 
-            $this->addFlash('success', "L\'oeuvre `{$event->getName()}` a bien été supprimée");
+            $this->addFlash('success', "L'événement {$event->getName()} a bien été supprimé");
             
             return $this->redirectToRoute('backoffice_event_browse');
         }

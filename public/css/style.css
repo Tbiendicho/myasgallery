@@ -11,3 +11,7 @@ body {
   width: 50px;
   height: 280px;
 }
+
+.login-form {
+  background-color: #EEEEEE;
+}

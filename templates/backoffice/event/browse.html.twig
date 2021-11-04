@@ -6,9 +6,9 @@
 
 <h1 class="text-center mt-5">Liste des événements</h1>
 
-
-
 <div class="container">
+
+{{ include('_partials/_flash_messages.html.twig') }}
 
 <div class="d-flex justify-content-center mt-4">
 <a href="{{ url('backoffice_event_add') }}" type="button" class="btn btn-success">Ajouter un événement</a>
