@@ -7,6 +7,7 @@ use App\Entity\Artwork;
 use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpClient\Chunk\InformationalChunk;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +23,11 @@ class EventType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Ajouter le nom',
                 ],
+            ])
+            ->add('picture', FileType::class, [
+                'label' => 'Image*',
+                'data_class' => null,
+                'required' => true,
             ])
             ->add('information', null, [
                 'label' => 'Description',

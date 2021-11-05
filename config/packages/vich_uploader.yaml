@@ -1,0 +1,16 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        artworks_img:
+           uri_prefix: /img/uploads/artworks
+           upload_destination: '%kernel.project_dir%/public/img/uploads/artworks'
+        categories_img:
+           uri_prefix: /img/uploads/categories
+           upload_destination: '%kernel.project_dir%/public/img/uploads/categories'
+        artists_img:
+           uri_prefix: /img/uploads/artists
+           upload_destination: '%kernel.project_dir%/public/img/uploads/artists'
+        events_img:
+           uri_prefix: /img/uploads/events
+           upload_destination: '%kernel.project_dir%/public/img/uploads/events'
