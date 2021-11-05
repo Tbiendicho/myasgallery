@@ -5,6 +5,7 @@
 
 body {
   padding-bottom: 5em;
+  background-color: #EEEEEE;
 }
 
 .main-img {
@@ -13,5 +14,5 @@ body {
 }
 
 .login-form {
-  background-color: #EEEEEE;
+  background-color: #B2B1B9;
 }

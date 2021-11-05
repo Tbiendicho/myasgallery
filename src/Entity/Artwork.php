@@ -9,9 +9,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ArtworkRepository::class)
+ * @Vich\Uploadable
  */
 class Artwork
 {
@@ -29,13 +32,6 @@ class Artwork
      * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $title;
-
-    /**
-     * @ORM\Column(type="string", length=512)
-     * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
-     */
-    private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -101,6 +97,22 @@ class Artwork
      */
     private $events;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pictureName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pictureSize;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="artworks_img", fileNameProperty="pictureName", size="pictureSize")
+     */
+    private $picture;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -124,18 +136,6 @@ class Artwork
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }
@@ -270,5 +270,44 @@ class Artwork
         $this->events->removeElement($event);
 
         return $this;
+    }
+
+    public function getPictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(?string $pictureName): void
+    {
+        $this->pictureName = $pictureName;
+    }
+
+    public function getPictureSize(): ?int
+    {
+        return $this->pictureSize;
+    }
+
+    public function setPictureSize(?int $pictureSize): void
+    {
+        $this->pictureSize = $pictureSize;
+    }
+
+    public function getPicture(): ?File
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $picture
+     */
+    public function setPicture(?File $picture = null): void
+    {
+        $this->picture = $picture;
+
+        if (null !== $picture) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 }
