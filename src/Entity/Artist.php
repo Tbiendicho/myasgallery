@@ -7,10 +7,13 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ArtistRepository::class)
+ * @Vich\Uploadable
  */
 class Artist
 {
@@ -49,6 +52,12 @@ class Artist
      * 
      * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="artists_img", fileNameProperty="photoName", size="photoSize")
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     */
     private $photo;
 
     /**
@@ -72,6 +81,16 @@ class Artist
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artists")
      */
     private $events;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $photoSize;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photoName;
 
     public function __construct()
     {
@@ -128,16 +147,23 @@ class Artist
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPhoto(): ?File
     {
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $photo
+     */
+    public function setPhoto(?File $photo = null): void
     {
         $this->photo = $photo;
 
-        return $this;
+        if (null !== $photo) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -219,5 +245,25 @@ class Artist
         }
 
         return $this;
+    }
+
+    public function getPhotoSize(): ?int
+    {
+        return $this->photoSize;
+    }
+
+    public function setPhotoSize(?int $photoSize): void
+    {
+        $this->photoSize = $photoSize;
+    }
+
+    public function getPhotoName(): ?string
+    {
+        return $this->photoName;
+    }
+
+    public function setPhotoName(?string $photoName): void
+    {
+        $this->photoName = $photoName;
     }
 }

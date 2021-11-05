@@ -7,10 +7,13 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @Vich\Uploadable
  */
 class Category
 {
@@ -45,9 +48,20 @@ class Category
     private $artworks;
 
     /**
-     * @ORM\Column(type="string", length=512, nullable=true)
+     * @var File|null
+     * @Vich\UploadableField(mapping="categories_img", fileNameProperty="pictureName", size="pictureSize")
      */
     private $picture;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pictureSize;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $pictureName;
 
     public function __construct()
     {
@@ -130,15 +144,42 @@ class Category
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPicture(): ?File
     {
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): self
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $picture
+     */
+    public function setPicture(?File $picture = null): void
     {
         $this->picture = $picture;
 
-        return $this;
+        if (null !== $picture) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureSize(): ?int
+    {
+        return $this->pictureSize;
+    }
+
+    public function setPictureSize(?int $pictureSize): void
+    {
+        $this->pictureSize = $pictureSize;
+    }
+
+    public function getPictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(?string $pictureName): void
+    {
+        $this->pictureName = $pictureName;
     }
 }
