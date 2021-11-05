@@ -6,7 +6,7 @@
 
 	<div class="row mt-5 justify-content-center">
 					<div class="card card-1" style="width: 18rem;">
-						<a href="{{ url('backoffice_category_read', {"id": category.id}) }}"><img src="{{ category.picture }}" class="card-img-top" alt="..."></a>
+						<a href="{{ url('backoffice_category_read', {"id": category.id}) }}"><img src="{{ vich_uploader_asset(category, category.picture) }}" class="card-img-top" alt="..."></a>
 						<div class="card-body">
 							<h5 class="card-title text-center">{{category.name}}</h5>
 						</div>
