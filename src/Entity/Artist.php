@@ -89,6 +89,8 @@ class Artist
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $photoName;
 
@@ -259,7 +261,8 @@ class Artist
 
     public function getPhotoName(): ?string
     {
-        return $this->photoName;
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
+        return $path . $this->photoName;
     }
 
     public function setPhotoName(?string $photoName): void

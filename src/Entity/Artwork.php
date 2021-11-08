@@ -99,6 +99,8 @@ class Artwork
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $pictureName;
 
@@ -117,7 +119,6 @@ class Artwork
     {
         $this->categories = new ArrayCollection();
         $this->events = new ArrayCollection();
-
 
         // adding a new date for each new object, corresponding to the flush date
         $this->createdAt = new DateTimeImmutable();
@@ -274,7 +275,9 @@ class Artwork
 
     public function getPictureName(): ?string
     {
-        return $this->pictureName;
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artworks/";
+        dump($path);
+        return $path . $this->pictureName;
     }
 
     public function setPictureName(?string $pictureName): void
