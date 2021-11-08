@@ -60,6 +60,7 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
      */
     private $pictureName;
 
@@ -69,6 +70,7 @@ class Category
 
         // adding a new date for each new object, corresponding to the flush date
         $this->createdAt = new DateTimeImmutable();
+
     }
 
     public function __toString()
@@ -175,7 +177,8 @@ class Category
 
     public function getPictureName(): ?string
     {
-        return $this->pictureName;
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/categories/";
+        return $path . $this->pictureName;
     }
 
     public function setPictureName(?string $pictureName): void

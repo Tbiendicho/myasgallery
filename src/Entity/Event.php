@@ -153,6 +153,8 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $pictureName;
 
@@ -425,7 +427,8 @@ class Event
 
     public function getPictureName(): ?string
     {
-        return $this->pictureName;
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/events/";
+        return $path . $this->pictureName;
     }
 
     public function setPictureName(?string $pictureName): void

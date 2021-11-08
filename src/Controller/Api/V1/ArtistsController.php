@@ -26,6 +26,7 @@ class ArtistsController extends AbstractController
     public function browse(ArtistRepository $artistRepository): Response
     {
         $allArtists = $artistRepository->findAll();
+        
         return $this->json($allArtists, Response::HTTP_OK, [], ['groups' => 'api_artists_browse']);
     }
 
