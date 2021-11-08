@@ -20,6 +20,7 @@ class ArtworksController extends AbstractController
     public function browse(ArtworkRepository $artworkRepository): Response
     {
         $allArtworks = $artworkRepository->findAll();
+        
         return $this->json($allArtworks, Response::HTTP_OK, [], ['groups' => 'api_artwork_browse']);
     }
 
