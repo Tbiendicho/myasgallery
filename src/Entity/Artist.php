@@ -278,7 +278,7 @@ class Artist
 
     public function getPhotoUrl(): ?string
     {
-        $path ="http://http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
+        $path ="http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
         return $path . $this->photoUrl;
     }
 
