@@ -102,6 +102,56 @@ class Category
         return $this;
     }
 
+    public function getPicture(): ?File
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $picture
+     */
+    public function setPicture(?File $picture = null): void
+    {
+        $this->picture = $picture;
+
+        if (null !== $picture) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureSize(): ?int
+    {
+        return $this->pictureSize;
+    }
+
+    public function setPictureSize(?int $pictureSize): void
+    {
+        $this->pictureSize = $pictureSize;
+    }
+
+    public function getPictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(?string $pictureName): void
+    {
+        $this->pictureName = $pictureName;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/categories/";
+        return $path . $this->pictureUrl;
+    }
+
+    public function setPictureUrl(?string $pictureUrl): void
+    {
+        $this->pictureUrl = $pictureUrl;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -151,55 +201,5 @@ class Category
         }
 
         return $this;
-    }
-
-    public function getPicture(): ?File
-    {
-        return $this->picture;
-    }
-
-    /**
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $picture
-     */
-    public function setPicture(?File $picture = null): void
-    {
-        $this->picture = $picture;
-
-        if (null !== $picture) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getPictureSize(): ?int
-    {
-        return $this->pictureSize;
-    }
-
-    public function setPictureSize(?int $pictureSize): void
-    {
-        $this->pictureSize = $pictureSize;
-    }
-
-    public function getPictureName(): ?string
-    {
-        return $this->pictureName;
-    }
-
-    public function setPictureName(?string $pictureName): void
-    {
-        $this->pictureName = $pictureName;
-    }
-
-    public function getPictureUrl(): ?string
-    {
-        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/categories/";
-        return $path . $this->pictureUrl;
-    }
-
-    public function setPictureUrl(?string $pictureUrl): void
-    {
-        $this->pictureUrl = $pictureUrl;
     }
 }

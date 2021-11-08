@@ -46,7 +46,7 @@ class AppFixtures extends Fixture
             $artist->setBiography($faker->text(500));
             $artist->setCountry($faker->country());
             $imageId = $faker->numberBetween(1, 500);
-            $artist->setPhoto("https://picsum.photos/id/{$imageId}/200/300");
+            // $artist->setPhoto("https://picsum.photos/id/{$imageId}/200/300");
 
             // add the fake data in the $artistsList table
             $artistsList[] = $artist;
@@ -61,7 +61,7 @@ class AppFixtures extends Fixture
 
             $category->setName($faker->words(1, true));
             $imageId = $faker->numberBetween(1, 500);
-            $category->setPicture("https://picsum.photos/id/{$imageId}/200/200");
+            // $category->setPicture("https://picsum.photos/id/{$imageId}/200/200");
 
             // add the fake data in the $categoryList table
             $categoryList[] = $category;
@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
             $event->setTown($faker->city());
             $event->setCountry($faker->country());
             $imageId = $faker->numberBetween(1, 500);
-            $event->setPicture("https://picsum.photos/id/{$imageId}/200/300");
+            // $event->setPicture("https://picsum.photos/id/{$imageId}/200/300");
 
             // get random artist
             $artistForEvent = $faker->randomElement($artistsList);
@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
 
             $artwork->setTitle($faker->words(2, true));
             $imageId = $faker->numberBetween(1, 500);
-            $artwork->setPicture("https://picsum.photos/id/{$imageId}/200/300");
+            // $artwork->setPicture("https://picsum.photos/id/{$imageId}/200/300");
             $artwork->setHeight($faker->numberBetween(10, 200));
             $artwork->setWidth($faker->numberBetween(10, 200));
             $artwork->setDepth($faker->numberBetween(10, 200));
