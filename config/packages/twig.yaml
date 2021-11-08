@@ -5,3 +5,5 @@ twig:
 when@test:
     twig:
         strict_variables: true
+        form_themes:
+        - '@TilowebBase64/form/fields.html.twig'

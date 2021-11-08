@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArtistType extends AbstractType
 {
@@ -34,8 +35,10 @@ class ArtistType extends AbstractType
                     'placeholder' => 'Saisir la nationalité'
                 ],
             ])
-            ->add('photo', FileType::class, [
+            ->add('photo', VichImageType::class, [
                 'label' => 'Image*',
+                'image_uri' => true,
+                'download_uri' => true,
                 'data_class' => null,
                 'required' => true,
             ])
