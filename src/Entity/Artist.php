@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ArtistRepository::class)
@@ -25,6 +26,13 @@ class Artist
      * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $id;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups({"api_artists_browse"})
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -117,6 +125,18 @@ class Artist
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
     public function getName(): ?string
