@@ -33,11 +33,10 @@ class Artwork
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @var File|null
+     * @Vich\UploadableField(mapping="artworks_img", fileNameProperty="pictureName", size="pictureSize", originalName="pictureUrl")
      */
-    private $pictureName;
+    private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -49,13 +48,14 @@ class Artwork
      * 
      * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
-    private $pictureUrl;
+    private $pictureName;
 
     /**
-     * @var File|null
-     * @Vich\UploadableField(mapping="artworks_img", fileNameProperty="pictureName", size="pictureSize", originalName="pictureUrl")
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
-    private $picture;
+    private $pictureUrl;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -147,37 +147,6 @@ class Artwork
         return $this;
     }
 
-    public function getPictureName(): ?string
-    {
-        return $this->pictureName;
-    }
-
-    public function setPictureName(?string $pictureName): void
-    {
-        $this->pictureName = $pictureName;
-    }
-
-    public function getPictureSize(): ?int
-    {
-        return $this->pictureSize;
-    }
-
-    public function setPictureSize(?int $pictureSize): void
-    {
-        $this->pictureSize = $pictureSize;
-    }
-
-    public function getPictureUrl(): ?string
-    {
-        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artworks/";
-        return $path . $this->pictureUrl;
-    }
-
-    public function setPictureUrl(?string $pictureUrl): void
-    {
-        $this->pictureUrl = $pictureUrl;
-    }
-
     public function getPicture(): ?File
     {
         return $this->picture;
@@ -195,6 +164,37 @@ class Artwork
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
         }
+    }
+
+    public function getPictureSize(): ?int
+    {
+        return $this->pictureSize;
+    }
+
+    public function setPictureSize(?int $pictureSize): void
+    {
+        $this->pictureSize = $pictureSize;
+    }
+
+    public function getPictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(?string $pictureName): void
+    {
+        $this->pictureName = $pictureName;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artworks/";
+        return $path . $this->pictureUrl;
+    }
+
+    public function setPictureUrl(?string $pictureUrl): void
+    {
+        $this->pictureUrl = $pictureUrl;
     }
 
     public function getHeight(): ?int
