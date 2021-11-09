@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MailerController!{% endblock %}
+{% block title %}Email envoyé !{% endblock %}
 
 {% block body %}
+
+	<div class="text-center">
+		<h1 class="mt-5">Un email vous a été envoyé.</h1>
+		<a href="{{ url('login') }}" class="btn btn-dark text-warning text-center mt-5" type="button">Revenir à la page de connexion</a>
+	</div>
 
 {% endblock %}
