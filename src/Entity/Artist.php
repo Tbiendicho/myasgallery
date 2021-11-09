@@ -29,7 +29,7 @@ class Artist
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      * @Groups({"api_artists_browse"})
      */
     private $slug;

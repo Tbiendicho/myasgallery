@@ -29,7 +29,7 @@ class Artwork
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      * @Groups({"api_artwork_browse"})
      */
     private $slug;
