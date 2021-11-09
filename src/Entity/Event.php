@@ -28,7 +28,7 @@ class Event
     private $id;
 
     /**
-     * @Gedmo\Slug(fields={"name"})
+     * @Gedmo\Slug(fields={"name", "date"}, dateFormat="d/m/Y")
      * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"api_event_browse"})
      */
