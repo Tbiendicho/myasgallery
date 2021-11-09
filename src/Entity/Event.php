@@ -30,7 +30,7 @@ class Event
     /**
      * @Gedmo\Slug(fields={"name", "date"}, dateFormat="d/m/Y")
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_category_browse", "api_artists_browse"})
      */
     private $slug;
 
@@ -161,7 +161,7 @@ class Event
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="events", fetch="EAGER", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Artwork::class, inversedBy="events", fetch="EAGER", cascade={"persist"})
      * 
      * @Groups({"api_event_browse"})
      */
