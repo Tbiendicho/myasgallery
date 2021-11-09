@@ -21,13 +21,13 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $name;
 
@@ -44,14 +44,14 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $pictureName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $pictureUrl;
 
@@ -67,7 +67,7 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="categories", fetch="EAGER")
-     * @Groups({"api_event_browse", "api_artists_browse"})
+     * @Groups({"api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $artworks;
 
