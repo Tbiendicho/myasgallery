@@ -30,12 +30,14 @@ class Artwork
     /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_artwork_browse"})
+     * 
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_category_browse", "api_artists_browse"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $title;
@@ -123,7 +125,7 @@ class Artwork
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="artworks", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artworks")
      * 
      * @Groups({"api_artwork_browse", "api_artists_browse"})
      */
