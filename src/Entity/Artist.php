@@ -36,7 +36,6 @@ class Artist
     /**
      * @var File|null
      * @Vich\UploadableField(mapping="artists_img", fileNameProperty="photoName", size="photoSize", originalName="photoUrl")
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
     private $photo;
 
@@ -132,6 +131,56 @@ class Artist
         return $this;
     }
 
+    public function getPhoto(): ?File
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $photo
+     */
+    public function setPhoto(?File $photo = null): void
+    {
+        $this->photo = $photo;
+
+        if (null !== $photo) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPhotoSize(): ?int
+    {
+        return $this->photoSize;
+    }
+
+    public function setPhotoSize(?int $photoSize): void
+    {
+        $this->photoSize = $photoSize;
+    }
+
+    public function getPhotoName(): ?string
+    {
+        return $this->photoName;
+    }
+
+    public function setPhotoName(?string $photoName): void
+    {
+        $this->photoName = $photoName;
+    }
+
+    public function getPhotoUrl(): ?string
+    {
+        $path ="http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
+        return $path . $this->photoUrl;
+    }
+
+    public function setPhotoUrl(?string $photoUrl): void
+    {
+        $this->photoUrl = $photoUrl;
+    }
+
     public function getBiography(): ?string
     {
         return $this->biography;
@@ -154,25 +203,6 @@ class Artist
         $this->country = $country;
 
         return $this;
-    }
-
-    public function getPhoto(): ?File
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $photo
-     */
-    public function setPhoto(?File $photo = null): void
-    {
-        $this->photo = $photo;
-
-        if (null !== $photo) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -254,36 +284,5 @@ class Artist
         }
 
         return $this;
-    }
-
-    public function getPhotoSize(): ?int
-    {
-        return $this->photoSize;
-    }
-
-    public function setPhotoSize(?int $photoSize): void
-    {
-        $this->photoSize = $photoSize;
-    }
-
-    public function getPhotoName(): ?string
-    {
-        return $this->photoName;
-    }
-
-    public function setPhotoName(?string $photoName): void
-    {
-        $this->photoName = $photoName;
-    }
-
-    public function getPhotoUrl(): ?string
-    {
-        $path ="http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
-        return $path . $this->photoUrl;
-    }
-
-    public function setPhotoUrl(?string $photoUrl): void
-    {
-        $this->photoUrl = $photoUrl;
     }
 }
