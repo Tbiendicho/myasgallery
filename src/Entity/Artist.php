@@ -34,6 +34,32 @@ class Artist
     private $name;
 
     /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="artists_img", fileNameProperty="photoName", size="photoSize", originalName="photoUrl")
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     */
+    private $photo;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $photoSize;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     */
+    private $photoName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     */
+    private $photoUrl;
+
+    /**
      * @ORM\Column(type="text")
      * 
      * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
@@ -52,13 +78,6 @@ class Artist
      * 
      * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
-
-    /**
-     * @var File|null
-     * @Vich\UploadableField(mapping="artists_img", fileNameProperty="photoName", size="photoSize")
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
-     */
-    private $photo;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -81,16 +100,6 @@ class Artist
      * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="artists")
      */
     private $events;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $photoSize;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $photoName;
 
     public function __construct()
     {
@@ -265,5 +274,16 @@ class Artist
     public function setPhotoName(?string $photoName): void
     {
         $this->photoName = $photoName;
+    }
+
+    public function getPhotoUrl(): ?string
+    {
+        $path ="http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
+        return $path . $this->photoUrl;
+    }
+
+    public function setPhotoUrl(?string $photoUrl): void
+    {
+        $this->photoUrl = $photoUrl;
     }
 }

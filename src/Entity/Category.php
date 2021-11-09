@@ -32,6 +32,30 @@ class Category
     private $name;
 
     /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="categories_img", fileNameProperty="pictureName", size="pictureSize", originalName="pictureUrl")
+     */
+    private $picture;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pictureSize;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
+     */
+    private $pictureName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     */
+    private $pictureUrl;
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
@@ -47,28 +71,13 @@ class Category
      */
     private $artworks;
 
-    /**
-     * @var File|null
-     * @Vich\UploadableField(mapping="categories_img", fileNameProperty="pictureName", size="pictureSize")
-     */
-    private $picture;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $pictureSize;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $pictureName;
-
     public function __construct()
     {
         $this->artworks = new ArrayCollection();
 
         // adding a new date for each new object, corresponding to the flush date
         $this->createdAt = new DateTimeImmutable();
+
     }
 
     public function __toString()
@@ -181,5 +190,16 @@ class Category
     public function setPictureName(?string $pictureName): void
     {
         $this->pictureName = $pictureName;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/categories/";
+        return $path . $this->pictureUrl;
+    }
+
+    public function setPictureUrl(?string $pictureUrl): void
+    {
+        $this->pictureUrl = $pictureUrl;
     }
 }

@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -32,6 +31,31 @@ class Artwork
      * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     */
+    private $pictureName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pictureSize;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     */
+    private $pictureUrl;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="artworks_img", fileNameProperty="pictureName", size="pictureSize", originalName="pictureUrl")
+     */
+    private $picture;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -97,27 +121,10 @@ class Artwork
      */
     private $events;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $pictureName;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $pictureSize;
-
-    /**
-     * @var File|null
-     * @Vich\UploadableField(mapping="artworks_img", fileNameProperty="pictureName", size="pictureSize")
-     */
-    private $picture;
-
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->events = new ArrayCollection();
-
 
         // adding a new date for each new object, corresponding to the flush date
         $this->createdAt = new DateTimeImmutable();
@@ -290,6 +297,17 @@ class Artwork
     public function setPictureSize(?int $pictureSize): void
     {
         $this->pictureSize = $pictureSize;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artworks/";
+        return $path . $this->pictureUrl;
+    }
+
+    public function setPictureUrl(?string $pictureUrl): void
+    {
+        $this->pictureUrl = $pictureUrl;
     }
 
     public function getPicture(): ?File

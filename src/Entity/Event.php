@@ -34,6 +34,31 @@ class Event
     private $name;
 
     /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="events_img", fileNameProperty="pictureName", size="pictureSize", originalName="pictureUrl")
+     */
+    private $picture;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $pictureSize;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     */
+    private $pictureName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     */
+    private $pictureUrl;
+
+    /**
      * @ORM\Column(type="text")
      * 
      * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
@@ -133,28 +158,6 @@ class Event
      * @Groups({"api_event_browse"})
      */
     private $artists;
-
-    /**
-     * @ORM\Column(type="string", length=512, nullable=true)
-     * 
-     * @Groups({"api_event_browse"})
-     */
-
-    /**
-     * @var File|null
-     * @Vich\UploadableField(mapping="events_img", fileNameProperty="pictureName", size="pictureSize")
-     */
-    private $picture;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $pictureSize;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $pictureName;
 
     public function __construct()
     {
@@ -431,5 +434,16 @@ class Event
     public function setPictureName(?string $pictureName): void
     {
         $this->pictureName = $pictureName;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/events/";
+        return $path . $this->pictureUrl;
+    }
+
+    public function setPictureUrl(?string $pictureUrl): void
+    {
+        $this->pictureUrl = $pictureUrl;
     }
 }
