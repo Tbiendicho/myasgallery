@@ -81,6 +81,13 @@ class Event
     private $date;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
+     */
+    private $dateEnd;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
@@ -280,6 +287,18 @@ class Event
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->dateEnd;
+    }
+
+    public function setDateEnd(?\DateTimeInterface $dateEnd): self
+    {
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }

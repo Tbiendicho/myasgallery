@@ -23,7 +23,7 @@ class Artwork
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $id;
 
@@ -36,7 +36,7 @@ class Artwork
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $title;
 
@@ -54,42 +54,42 @@ class Artwork
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $pictureName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $pictureUrl;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $height;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $width;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $depth;
 
     /**
      * @ORM\Column(type="string", length=1024, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $description;
 
@@ -111,7 +111,7 @@ class Artwork
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="artworks")
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $artists;
 

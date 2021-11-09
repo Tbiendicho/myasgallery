@@ -23,7 +23,7 @@ class Artist
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $id;
 
@@ -37,7 +37,7 @@ class Artist
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $name;
 
@@ -55,35 +55,35 @@ class Artist
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $photoName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $photoUrl;
 
     /**
      * @ORM\Column(type="text")
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $biography;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=512)
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
 
     /**
