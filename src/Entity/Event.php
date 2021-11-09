@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -25,6 +26,13 @@ class Event
      * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $id;
+
+    /**
+     * @Gedmo\Slug(fields={"name", "date"}, dateFormat="d/m/Y")
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"api_event_browse"})
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -71,6 +79,13 @@ class Event
      * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
      */
     private $date;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * 
+     * @Groups({"api_event_browse", "api_artwork_browse", "api_artists_browse"})
+     */
+    private $dateEnd;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -178,6 +193,18 @@ class Event
         return $this->id;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -188,6 +215,56 @@ class Event
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getPicture(): ?File
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $picture
+     */
+    public function setPicture(?File $picture = null): void
+    {
+        $this->picture = $picture;
+
+        if (null !== $picture) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPictureSize(): ?int
+    {
+        return $this->pictureSize;
+    }
+
+    public function setPictureSize(?int $pictureSize): void
+    {
+        $this->pictureSize = $pictureSize;
+    }
+
+    public function getPictureName(): ?string
+    {
+        return $this->pictureName;
+    }
+
+    public function setPictureName(?string $pictureName): void
+    {
+        $this->pictureName = $pictureName;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/events/";
+        return $path . $this->pictureUrl;
+    }
+
+    public function setPictureUrl(?string $pictureUrl): void
+    {
+        $this->pictureUrl = $pictureUrl;
     }
 
     public function getInformation(): ?string
@@ -210,6 +287,18 @@ class Event
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->dateEnd;
+    }
+
+    public function setDateEnd(?\DateTimeInterface $dateEnd): self
+    {
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }
@@ -395,55 +484,5 @@ class Event
         $this->artists->removeElement($artist);
 
         return $this;
-    }
-
-    public function getPicture(): ?File
-    {
-        return $this->picture;
-    }
-
-    /**
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $picture
-     */
-    public function setPicture(?File $picture = null): void
-    {
-        $this->picture = $picture;
-
-        if (null !== $picture) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getPictureSize(): ?int
-    {
-        return $this->pictureSize;
-    }
-
-    public function setPictureSize(?int $pictureSize): void
-    {
-        $this->pictureSize = $pictureSize;
-    }
-
-    public function getPictureName(): ?string
-    {
-        return $this->pictureName;
-    }
-
-    public function setPictureName(?string $pictureName): void
-    {
-        $this->pictureName = $pictureName;
-    }
-
-    public function getPictureUrl(): ?string
-    {
-        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/events/";
-        return $path . $this->pictureUrl;
-    }
-
-    public function setPictureUrl(?string $pictureUrl): void
-    {
-        $this->pictureUrl = $pictureUrl;
     }
 }

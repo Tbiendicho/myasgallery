@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ArtistRepository::class)
@@ -22,21 +23,27 @@ class Artist
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $id;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"api_artists_browse"})
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $name;
 
     /**
      * @var File|null
      * @Vich\UploadableField(mapping="artists_img", fileNameProperty="photoName", size="photoSize", originalName="photoUrl")
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
      */
     private $photo;
 
@@ -48,35 +55,35 @@ class Artist
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $photoName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $photoUrl;
 
     /**
      * @ORM\Column(type="text")
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $biography;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=512)
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
      */
 
     /**
@@ -120,6 +127,18 @@ class Artist
         return $this->id;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -130,6 +149,56 @@ class Artist
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getPhoto(): ?File
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $photo
+     */
+    public function setPhoto(?File $photo = null): void
+    {
+        $this->photo = $photo;
+
+        if (null !== $photo) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getPhotoSize(): ?int
+    {
+        return $this->photoSize;
+    }
+
+    public function setPhotoSize(?int $photoSize): void
+    {
+        $this->photoSize = $photoSize;
+    }
+
+    public function getPhotoName(): ?string
+    {
+        return $this->photoName;
+    }
+
+    public function setPhotoName(?string $photoName): void
+    {
+        $this->photoName = $photoName;
+    }
+
+    public function getPhotoUrl(): ?string
+    {
+        $path ="http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
+        return $path . $this->photoUrl;
+    }
+
+    public function setPhotoUrl(?string $photoUrl): void
+    {
+        $this->photoUrl = $photoUrl;
     }
 
     public function getBiography(): ?string
@@ -154,25 +223,6 @@ class Artist
         $this->country = $country;
 
         return $this;
-    }
-
-    public function getPhoto(): ?File
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $photo
-     */
-    public function setPhoto(?File $photo = null): void
-    {
-        $this->photo = $photo;
-
-        if (null !== $photo) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -254,36 +304,5 @@ class Artist
         }
 
         return $this;
-    }
-
-    public function getPhotoSize(): ?int
-    {
-        return $this->photoSize;
-    }
-
-    public function setPhotoSize(?int $photoSize): void
-    {
-        $this->photoSize = $photoSize;
-    }
-
-    public function getPhotoName(): ?string
-    {
-        return $this->photoName;
-    }
-
-    public function setPhotoName(?string $photoName): void
-    {
-        $this->photoName = $photoName;
-    }
-
-    public function getPhotoUrl(): ?string
-    {
-        $path ="http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artists/";
-        return $path . $this->photoUrl;
-    }
-
-    public function setPhotoUrl(?string $photoUrl): void
-    {
-        $this->photoUrl = $photoUrl;
     }
 }

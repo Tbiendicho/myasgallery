@@ -10,8 +10,13 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211108143943 extends AbstractMigration
+final class Version20211109091252 extends AbstractMigration
 {
+    public function isTransactional(): bool
+    {
+        return false;
+    }
+    
     public function getDescription(): string
     {
         return '';
@@ -20,12 +25,12 @@ final class Version20211108143943 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE artwork ADD picture_url VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE event ADD date_end DATETIME DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE artwork DROP picture_url');
+        $this->addSql('ALTER TABLE event DROP date_end');
     }
 }

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -21,13 +22,20 @@ class Category
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $id;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
+     * @Groups({"api_category_browse"})
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $name;
 
@@ -44,14 +52,14 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $pictureName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $pictureUrl;
 
@@ -67,7 +75,7 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity=Artwork::class, mappedBy="categories", fetch="EAGER")
-     * @Groups({"api_event_browse", "api_artists_browse"})
+     * @Groups({"api_event_browse", "api_artists_browse", "api_category_browse"})
      */
     private $artworks;
 
@@ -90,6 +98,18 @@ class Category
         return $this->id;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -98,57 +118,6 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Artwork[]
-     */
-    public function getArtworks(): Collection
-    {
-        return $this->artworks;
-    }
-
-    public function addArtwork(Artwork $artwork): self
-    {
-        if (!$this->artworks->contains($artwork)) {
-            $this->artworks[] = $artwork;
-            $artwork->addCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtwork(Artwork $artwork): self
-    {
-        if ($this->artworks->removeElement($artwork)) {
-            $artwork->removeCategory($this);
-        }
 
         return $this;
     }
@@ -201,5 +170,56 @@ class Category
     public function setPictureUrl(?string $pictureUrl): void
     {
         $this->pictureUrl = $pictureUrl;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Artwork[]
+     */
+    public function getArtworks(): Collection
+    {
+        return $this->artworks;
+    }
+
+    public function addArtwork(Artwork $artwork): self
+    {
+        if (!$this->artworks->contains($artwork)) {
+            $this->artworks[] = $artwork;
+            $artwork->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtwork(Artwork $artwork): self
+    {
+        if ($this->artworks->removeElement($artwork)) {
+            $artwork->removeCategory($this);
+        }
+
+        return $this;
     }
 }
