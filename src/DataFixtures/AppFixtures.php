@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Address;
 use App\Entity\Artist;
 use App\Entity\Artwork;
 use App\Entity\Category;
@@ -45,7 +44,7 @@ class AppFixtures extends Fixture
             $artist->setName($faker->name());
             $artist->setBiography($faker->text(500));
             $artist->setCountry($faker->country());
-            $imageId = $faker->numberBetween(1, 500);
+            // $imageId = $faker->numberBetween(1, 500);
             // $artist->setPhoto("https://picsum.photos/id/{$imageId}/200/300");
 
             // add the fake data in the $artistsList table
@@ -60,11 +59,42 @@ class AppFixtures extends Fixture
             $entityManager->persist($category);
 
             $category->setName($faker->words(1, true));
-            $imageId = $faker->numberBetween(1, 500);
+            // $imageId = $faker->numberBetween(1, 500);
             // $category->setPicture("https://picsum.photos/id/{$imageId}/200/200");
 
             // add the fake data in the $categoryList table
             $categoryList[] = $category;
+        }
+
+        for ($artworkNumber = 0; $artworkNumber < 50; $artworkNumber++) {
+            $artwork = new Artwork();
+
+            // preparing the database
+            $entityManager->persist($artwork);
+
+            $artwork->setTitle($faker->words(2, true));
+            // $imageId = $faker->numberBetween(1, 500);
+            // $artwork->setPicture("https://picsum.photos/id/{$imageId}/200/300");
+            $artwork->setHeight($faker->numberBetween(10, 200));
+            $artwork->setWidth($faker->numberBetween(10, 200));
+            $artwork->setDepth($faker->numberBetween(10, 200));
+            $artwork->setDescription($faker->text(5));
+
+            // get random artist
+            $artistForArtwork = $faker->randomElement($artistsList);
+
+            // add random artist in artists_id column
+
+            $artwork->setArtists($artistForArtwork);
+
+            // get random category
+            $categoryForArtwork = $faker->randomElement($categoryList);
+
+            // add random category in category_id column
+
+            $artwork->addCategory($categoryForArtwork);   
+
+            $artworkList[] = $artwork;
         }
 
         // generating a list of random events with faker
@@ -87,7 +117,7 @@ class AppFixtures extends Fixture
             $event->setZipCode($faker->randomNumber(5, true));
             $event->setTown($faker->city());
             $event->setCountry($faker->country());
-            $imageId = $faker->numberBetween(1, 500);
+            // $imageId = $faker->numberBetween(1, 500);
             // $event->setPicture("https://picsum.photos/id/{$imageId}/200/300");
 
             // get random artist
@@ -97,45 +127,15 @@ class AppFixtures extends Fixture
 
             // add the fake data in the $eventsList table
             $eventsList[] = $event;
-        }
 
-        for ($artworkNumber = 0; $artworkNumber < 50; $artworkNumber++) {
-            $artwork = new Artwork();
+            // get random artwork
+            $artworkForEvent = $faker->randomElement($artworkList);
 
-            // preparing the database
-            $entityManager->persist($artwork);
+            // add random artwork in artwork_id column
+            $event->addArtwork($artworkForEvent);
 
-            $artwork->setTitle($faker->words(2, true));
-            $imageId = $faker->numberBetween(1, 500);
-            // $artwork->setPicture("https://picsum.photos/id/{$imageId}/200/300");
-            $artwork->setHeight($faker->numberBetween(10, 200));
-            $artwork->setWidth($faker->numberBetween(10, 200));
-            $artwork->setDepth($faker->numberBetween(10, 200));
-            $artwork->setDescription($faker->text(5));
-
-            // get random artist
-            $artistForArtwork = $faker->randomElement($artistsList);
-
-            // add random artist in artists_id column
-
-            $artwork->setArtists($artistForArtwork);
-
-            // get random category
-            $categoryForArtwork = $faker->randomElement($categoryList);
-
-            // add random category in category_id column
-
-            $artwork->addCategory($categoryForArtwork);
-
-            // get random event
-            $eventForArtwork = $faker->randomElement($eventsList);
-
-            // add random event in event_id column
-
-            $artwork->addEvent($eventForArtwork);
-
-            // add the fake data in the $artworkList table
-            $artworkList[] = $artwork;
+            // add the fake data in the $eventsList table
+            $eventsList[] = $event;
         }
 
         $adminUser = new User();
