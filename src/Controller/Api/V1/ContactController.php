@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api\V1;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class ContactController extends AbstractController
 
         $email = (new Email())
             ->from('myasgallerydev@gmail.com')
-            ->to($email)
+            ->to($email, 'myasgallerydev@gmail.com')
             ->subject($messageObject)
             ->text($message);
 
