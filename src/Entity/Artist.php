@@ -37,7 +37,7 @@ class Artist
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artists_browse", "api_artwork_browse", "api_event_browse", "api_category_browse"})
+     * @Groups({"api_artists_browse", "api_artwork_browse", "api_artwork_browse_by_category", "api_event_browse", "api_category_browse"})
      */
     private $name;
 

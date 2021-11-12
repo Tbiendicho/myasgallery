@@ -54,8 +54,26 @@ class EventRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT e
             FROM App\Entity\Event e'
-
         );
+
+        // returns the selected Artwork Object
+        return $query->getResult();
+    }
+
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Event[]
+     */
+    public function findEventsByDate():array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT e
+            FROM App\Entity\Event e
+            ORDER BY e.date ASC'
+            );
 
         // returns the selected Artwork Object
         return $query->getResult();
