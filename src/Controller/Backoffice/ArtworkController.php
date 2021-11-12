@@ -24,22 +24,16 @@ class ArtworkController extends AbstractController
      */
     public function browse(ArtworkRepository $artworkRepository): Response
     {
-
-        $artwork = $artworkRepository->findArtworksWithAllInfos();
-
         return $this->render('backoffice/artwork/browse.html.twig', [
-            'artwork_list' => $artwork,
+            'artwork_list' => $artworkRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(Artwork $artwork, ArtworkRepository $artworkRepository): Response
+    public function read(Artwork $artwork): Response
     {
-
-        $artwork = $artworkRepository->findOneArtworkWithAllInfos($artwork->getSlug());
-
         return $this->render('backoffice/artwork/read.html.twig', [
             'current_artwork' => $artwork,
         ]);

@@ -31,14 +31,14 @@ class Artwork
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_category_browse", "api_artists_browse"})
+     * @Groups({"api_artwork_browse", "api_event_browse", "api_artwork_browse_by_category", "api_category_browse", "api_artists_browse"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
+     * @Groups({"api_artwork_browse", "api_artists_browse", "api_artwork_browse_by_category", "api_event_browse", "api_category_browse"})
      */
     private $title;
 
@@ -63,7 +63,7 @@ class Artwork
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
-     * @Groups({"api_artwork_browse", "api_artists_browse", "api_event_browse", "api_category_browse"})
+     * @Groups({"api_artwork_browse", "api_artwork_browse_by_category", "api_artists_browse", "api_event_browse", "api_category_browse"})
      */
     private $pictureUrl;
 
@@ -113,14 +113,14 @@ class Artwork
      * @ORM\ManyToOne(targetEntity=Artist::class, inversedBy="artworks")
      * @ORM\JoinColumn(nullable=false)
      * 
-     * @Groups({"api_artwork_browse", "api_event_browse", "api_category_browse"})
+     * @Groups({"api_artwork_browse", "api_artwork_browse_by_category", "api_event_browse", "api_category_browse"})
      */
     private $artists;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks")
      * 
-     * @Groups({"api_artwork_browse"})
+     * @Groups({"api_artwork_browse", "api_artwork_browse_by_category"})
      */
     private $categories;
 

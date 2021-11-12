@@ -23,6 +23,16 @@ class EventsController extends AbstractController
         return $this->json($allEvents, Response::HTTP_OK, [], ['groups' => 'api_event_browse']);
     }
 
+    /**
+     * @Route("/by-date", name="browseByDate", methods={"GET"})
+     */
+    public function browseByDate(EventRepository $eventRepository): Response
+    {
+        $allEventsByDate = $eventRepository->findEventsByDate();
+        return $this->json($allEventsByDate, Response::HTTP_OK, [], ['groups' => 'api_event_browse']);
+    }
+
+
     // function read is able to find all informations about one event and return this with json
     /**
      * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
