@@ -19,13 +19,13 @@
     {% for currentEvent in event_list %}
         <div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5">
             <div class="card card-1" style="width: 18rem;">
-                <a href="{{ url('backoffice_event_read', {"id": currentEvent.id}) }}" ><img src="{{ asset('img/uploads/events/') ~ currentEvent.pictureName }}" class="card-img-top" alt="..."></a>
+                <a href="{{ url('backoffice_event_read', {"slug": currentEvent.slug}) }}" ><img src="{{ asset('img/uploads/events/') ~ currentEvent.pictureName }}" class="card-img-top" alt="..."></a>
                 
                 <div class="card-body">
                     <h5 class="card-title text-center event-name">{{currentEvent.name}}</h5>
                     <p class="card-text">{{currentEvent.information|slice(0,50) ~ '…'}}</p>
                     <div class="text-center">
-                        <a href="{{ url('backoffice_event_read', {"id": currentEvent.id}) }}">Détails</a>
+                        <a href="{{ url('backoffice_event_read', {"slug": currentEvent.slug}) }}">Détails</a>
                     </div>
                 </div>
                 

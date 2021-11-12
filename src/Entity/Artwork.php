@@ -118,7 +118,7 @@ class Artwork
     private $artists;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="artworks")
      * 
      * @Groups({"api_artwork_browse"})
      */
