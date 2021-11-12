@@ -24,20 +24,23 @@ class CategoryController extends AbstractController
      */
     public function browse(CategoryRepository $categoryRepository): Response
     {
-        $allCategory = $categoryRepository->findAll();
+
+        $category = $categoryRepository->findCategoriesWithAllInfos();
 
         return $this->render('backoffice/category/browse.html.twig', [
-            'category_list' => $allCategory,
+            'category_list' => $category,
         ]);
     }
 
     /**
-     * @Route("{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(Category $category): Response
+    public function read(Category $category, CategoryRepository $categoryRepository): Response
     {
+        $category = $categoryRepository->findOneCategoryWithAllInfos($category->getSlug());
+
         return $this->render('backoffice/category/read.html.twig', [
-        'category' => $category,
+            'category' => $category,
         ]);
     }
 

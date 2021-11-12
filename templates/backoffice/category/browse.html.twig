@@ -24,7 +24,7 @@
 
 				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5" style="width: auto; margin: auto;">
 					<div class="card card-1" style="width: 18rem;">
-						<a href="{{ url('backoffice_category_read', {"id": currentCategory.id}) }}"><img src="{{ asset('img/uploads/categories/') ~ currentCategory.pictureName }}" class="card-img-top" alt="..."></a>
+						<a href="{{ url('backoffice_category_read', {"slug": currentCategory.slug}) }}"><img src="{{ asset('img/uploads/categories/') ~ currentCategory.pictureName }}" class="card-img-top" alt="..."></a>
 						<div class="card-body">
 							<h5 class="card-title text-center">{{currentCategory.name}}</h5>
 						</div>
