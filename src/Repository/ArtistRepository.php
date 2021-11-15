@@ -23,7 +23,7 @@ class ArtistRepository extends ServiceEntityRepository
      * Récupère toutes les informations liées au tvShow demandé
      * @return Artist
      */
-    public function findOneArtistWithAllInfos(string $slug): Artist
+    public function findOneArtistWithAllInfos(string $slug)
     {
         $entityManager = $this->getEntityManager();
 
@@ -58,6 +58,28 @@ class ArtistRepository extends ServiceEntityRepository
         // returns the selected Artwork Object
         return $query->getResult();
     }
+
+    public function findArtistByName(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->like('p.name', ':query'),
+                    $qb->expr()->isNotNull('p.createdAt')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
+
+
 
     // /**
     //  * @return Artist[] Returns an array of Artist objects

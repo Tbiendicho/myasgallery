@@ -23,7 +23,7 @@ class EventRepository extends ServiceEntityRepository
      * Récupère toutes les informations liées au tvShow demandé
      * @return Event
      */
-    public function findOneEventWithAllInfos(string $slug): Event
+    public function findOneEventWithAllInfos(string $slug)
     {
         $entityManager = $this->getEntityManager();
 

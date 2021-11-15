@@ -23,7 +23,7 @@ class ArtworkRepository extends ServiceEntityRepository
      * Récupère toutes les informations liées au tvShow demandé
      * @return Artwork
      */
-    public function findOneArtworkWithAllInfos(string $slug): Artwork
+    public function findOneArtworkWithAllInfos(string $slug)
     {
         $entityManager = $this->getEntityManager();
 
