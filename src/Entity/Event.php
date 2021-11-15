@@ -161,7 +161,7 @@ class Event
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Artwork::class, inversedBy="events", fetch="EAGER", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Artwork::class, inversedBy="events")
      * 
      * @Groups({"api_event_browse"})
      */

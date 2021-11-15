@@ -68,14 +68,6 @@ class ArtworkType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
             ])
-            ->add('events', null, [
-                'class' => Event::class,
-                'label' => 'Evénement(s) associé(s)',
-                'choice_label' => 'name',
-                'expanded' => true,
-                'multiple' => true,
-            ])
-
         ;
     }
 

@@ -24,16 +24,22 @@ class EventController extends AbstractController
      */
     public function browse(EventRepository $eventRepository): Response
     {
+
+        $event = $eventRepository->findEventsWithAllInfos();
+
         return $this->render('backoffice/event/browse.html.twig', [
-            'event_list' => $eventRepository->findAll(),
+            'event_list' => $event,
         ]);
     }
 
     /**
-     * @Route("{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(Event $event): Response
+    public function read(Event $event, EventRepository $eventRepository): Response
     {
+
+        $event = $eventRepository->findOneEventWithAllInfos($event->getSlug());
+
         return $this->render('backoffice/event/read.html.twig', [
             'current_event' => $event,
         ]);

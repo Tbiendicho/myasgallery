@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api\V1;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class ContactController extends AbstractController
 {
@@ -16,26 +16,34 @@ class ContactController extends AbstractController
      */
     public function sendMessage(Request $request, MailerInterface $mailer): Response
     {
+        $requestDatasArray = json_decode($request->getContent(), true);
 
-        $lastname = $request->request->get('lastName');
-        $firstname = $request->request->get('firstName');
-        $company = $request->request->get('company');
-        $email = $request->request->get('email');
-        $phone = $request->request->get('phone');
-        $messageObject = $request->request->get('messageObject');
-        $message = $request->request->get('message');
+        $lastname = $requestDatasArray['lastname'];
+        $firstname = $requestDatasArray['firstname'];
+        $company = $requestDatasArray['company'];
+        $mail = $requestDatasArray['email'];
+        $phone = $requestDatasArray['phone'];
+        $messageObject = $requestDatasArray['messageObject'];
+        $message = $requestDatasArray['message'];
 
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('myasgallerydev@gmail.com')
-            ->to($email)
+            ->to('thomas.biendicho@gmail.com')
             ->subject($messageObject)
-            ->text($message);
+            ->text($message)
+            ->htmlTemplate('contact/index.html.twig')
+            ->context([
+                'firstname' => $firstname,
+                'lastname' => $lastname,
+                'messageObject' => $messageObject,
+                'message' => $message,
+                'company' => $company,
+                'phone' => $phone,
+                'mail' => $mail
+            ]);
 
         $mailer->send($email);
 
-
-        return $this->render('contact/index.html.twig', [
-            'controller_name' => 'ContactController',
-        ]);
+        return $this->json('all data sent successfully', 200);
     }
 }

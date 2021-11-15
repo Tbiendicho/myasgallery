@@ -19,6 +19,48 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+        /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Category
+     */
+    public function findOneCategoryWithAllInfos(string $slug): Category
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT c, w, a
+            FROM App\Entity\Category c
+            JOIN c.artworks w
+            JOIN w.artists a
+
+        -- this parameter will forbid some DQL injections
+            WHERE c.slug = :slug'
+        )->setParameter('slug', $slug);
+
+        // returns the selected Category Object
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Category[]
+     */
+    public function findCategoriesWithAllInfos():array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT c, w
+            FROM App\Entity\Category c
+            JOIN c.artworks w'
+        );
+
+        // returns the selected Category Object
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

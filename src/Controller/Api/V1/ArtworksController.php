@@ -24,6 +24,16 @@ class ArtworksController extends AbstractController
         return $this->json($allArtworks, Response::HTTP_OK, [], ['groups' => 'api_artwork_browse']);
     }
 
+    /**
+     * @Route("/{slug}", name="api_artwork_browse_by_category", methods={"GET"})
+     */
+    public function browseByCategory(string $slug, ArtworkRepository $artworkRepository): Response
+    {
+        $artwork = $artworkRepository->findArtworksFromOneCategory($slug);
+
+        return $this->json($artwork, Response::HTTP_OK, [], ['groups' => 'api_artwork_browse_by_category']);
+    }
+
     // function read is able to find all informations about one artwork and return this with json
     /**
      * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})

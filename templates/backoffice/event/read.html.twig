@@ -10,7 +10,7 @@
     <div class="d-flex justify-content-center mt-5">
         <div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-2">
             <div class="card card-1" style="width: 18rem;">
-                <a href="{{ url('backoffice_event_read', {"id": current_event.id}) }}" ><img src="{{vich_uploader_asset(current_event, current_event.picture)}}" class="card-img-top" alt="..."></a>
+                <a href="{{ url('backoffice_event_read', {"slug": current_event.slug}) }}" ><img src="{{vich_uploader_asset(current_event, current_event.picture)}}" class="card-img-top" alt="..."></a>
                 
                 <div class="card-body">
                     <p class="card-text">{{current_event.information}}</p>
@@ -43,7 +43,7 @@
 				<div class="mx-auto col-xl-4 col-lg-4 col-xxl-3 col-md-6 col-sm-6">
 					<div class="mt-5">
 						<div class="card card-1" style="width: 18rem;">
-							<a href="{{ url('backoffice_artwork_read', {"id": artwork.id}) }}"><img src="{{vich_uploader_asset(artwork, artwork.picture)}}" class="card-img-top" alt="..."></a>
+							<a href="{{ url('backoffice_artwork_read', {"slug": artwork.slug}) }}"><img src="{{vich_uploader_asset(artwork, artwork.picture)}}" class="card-img-top" alt="..."></a>
 							<div class="card-body">
 								<h5 class="card-title text-center">{{artwork.title}}</h5>
 								<p class="card-text">Description/Particularité:
@@ -88,7 +88,7 @@
                 <div class="mx-auto col-xl-4 col-lg-4 col-xxl-3 col-md-6 col-sm-6">
                     <div class="mt-5">
                         <div class="card card-1" style="width: 18rem;">
-                            <a href="{{ url('backoffice_artwork_read', {"id": artist.id}) }}"><img src="{{vich_uploader_asset(artist, artist.photo)}}" class="card-img-top" alt="..."></a>
+                            <a href="{{ url('backoffice_artwork_read', {"slug": artist.slug}) }}"><img src="{{vich_uploader_asset(artist, artist.photo)}}" class="card-img-top" alt="..."></a>
                             <div class="card-body">
                                 <h5 class="card-title text-center">{{artist.name}}</h5>
                                 <p class="card-text">Description/Particularité:

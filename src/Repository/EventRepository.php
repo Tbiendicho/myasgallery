@@ -19,6 +19,66 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Event
+     */
+    public function findOneEventWithAllInfos(string $slug): Event
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT e, w, a
+            FROM App\Entity\Event e
+            JOIN e.artworks w
+            JOIN e.artists a
+
+        -- this parameter will forbid some DQL injections
+            WHERE e.slug = :slug'
+        )->setParameter('slug', $slug);
+
+        // returns the selected Artwork Object
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Event[]
+     */
+    public function findEventsWithAllInfos():array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT e
+            FROM App\Entity\Event e'
+        );
+
+        // returns the selected Artwork Object
+        return $query->getResult();
+    }
+
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Event[]
+     */
+    public function findEventsByDate():array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT e
+            FROM App\Entity\Event e
+            ORDER BY e.date ASC'
+            );
+
+        // returns the selected Artwork Object
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */
