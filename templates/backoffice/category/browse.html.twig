@@ -6,7 +6,7 @@
 
 	<h1 class="text-center mt-5">Liste des catégories</h1>
 
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 
 		{{ include('_partials/_flash_messages.html.twig') }}
 
@@ -17,8 +17,8 @@
 		<div class="row">
 			{% for currentCategory in category_list %}
 
-				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5 d-flex align-items-stretch" style="width: auto;">
-					<div class="card card-1" style="width: 18rem;">
+				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5 d-flex align-items-stretch">
+					<div class="card card-1" style="width: 100%;">
 						<a href="{{ url('backoffice_category_read', {"slug": currentCategory.slug}) }}"><img src="{{ asset('img/uploads/categories/') ~ currentCategory.pictureName }}" class="card-img-top" alt="..."></a>
 						<div class="card-body">
 							<h5 class="card-title text-center">{{currentCategory.name}}</h5>

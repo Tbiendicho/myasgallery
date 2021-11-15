@@ -6,10 +6,10 @@
 
 <h1 class="text-center mt-5">{{current_artwork.artists}}</h1>
 
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 
         <div class="d-flex justify-content-center mt-5">
-            <div class="card card-1" style="width: 70%;">
+            <div class="card card-1" style="width: 100%;">
                 <img src="{{ vich_uploader_asset(current_artwork, current_artwork.picture) }}" class="card-img-top" alt="..."></a>
                 <div class="card-body">
                     <p class="card-text">{{current_artwork.description}}</p>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-		<div class="card mb-3 card-1 mt-5 mx-auto" style="width: 70%;">
+		<div class="card mb-3 card-1 mt-5 mx-auto" style="width: 100%;">
 			<div class="d-flex">
 				<div class="col-md-4 col-sm-1" style="width: 60%;">
 					<a href="{{ url('backoffice_artist_read', {"slug": current_artwork.artists.slug}) }}"><img src="{{ current_artwork.artists.photoUrl }}" class="img-fluid rounded-start" alt="..."></a>
