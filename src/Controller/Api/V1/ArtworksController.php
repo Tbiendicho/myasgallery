@@ -25,7 +25,7 @@ class ArtworksController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="api_artwork_browse_by_category", methods={"GET"})
+     * @Route("/categorie/{slug}", name="api_artwork_browse_by_category", methods={"GET"})
      */
     public function browseByCategory(string $slug, ArtworkRepository $artworkRepository): Response
     {

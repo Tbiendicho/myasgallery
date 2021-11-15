@@ -23,7 +23,7 @@ class CategoryRepository extends ServiceEntityRepository
      * Récupère toutes les informations liées au tvShow demandé
      * @return Category
      */
-    public function findOneCategoryWithAllInfos(string $slug): Category
+    public function findOneCategoryWithAllInfos(string $slug)
     {
         $entityManager = $this->getEntityManager();
 

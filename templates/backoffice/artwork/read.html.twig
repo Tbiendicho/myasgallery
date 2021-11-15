@@ -6,10 +6,10 @@
 
 <h1 class="text-center mt-5">{{current_artwork.artists}}</h1>
 
-	<div class="container">
+	<div class="container" style="max-width: 1400px;">
 
         <div class="d-flex justify-content-center mt-5">
-            <div class="card card-1" style="width: 18rem;">
+            <div class="card card-1" style="width: 100%;">
                 <img src="{{ vich_uploader_asset(current_artwork, current_artwork.picture) }}" class="card-img-top" alt="..."></a>
                 <div class="card-body">
                     <p class="card-text">{{current_artwork.description}}</p>
@@ -17,10 +17,10 @@
                 <ul class="list-group list-group-flush text-center">
                     <li class="list-group-item">Artiste : {{current_artwork.artists}}</li>
                 </ul>
-                <div class="card-body text-center">
-                    <a href="{{ url('backoffice_artwork_edit', {"id": current_artwork.id}) }}" type="button" class="btn btn-primary">Modifier</a>
+                <div class="card-body d-flex align-items-end justify-content-between" style="padding: inherit">
+                    <a href="{{ url('backoffice_artwork_edit', {"id": current_artwork.id}) }}" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 3em; width: 8em; display: flex; justify-content: center; align-items: center;" class="btn btn-primary">Modifier</a>
                     <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
+                        <button id="btnGroupDrop1" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 3em; width: 8em;" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                             <li><a class="dropdown-item" href="{{ url('backoffice_artwork_delete', {"id": current_artwork.id}) }}">Confimer la suppression</a></li>
                             <li><a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a></li>
@@ -29,13 +29,13 @@
                 </div>
             </div>
         </div>
-		<div class="card mb-3 card-1 mt-5 mx-auto" style="max-width: 576px;">
+		<div class="card mb-3 card-1 mt-5 mx-auto" style="width: 100%;">
 			<div class="d-flex">
-				<div class="col-md-4 col-sm-1">
+				<div class="col-md-4 col-sm-1" style="width: 60%;">
 					<a href="{{ url('backoffice_artist_read', {"slug": current_artwork.artists.slug}) }}"><img src="{{ current_artwork.artists.photoUrl }}" class="img-fluid rounded-start" alt="..."></a>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body" style="height: 17em; overflow: hidden; overflow-y: scroll;">
+                </div>
+				<div class="col-md-8" style="width: 40%;">
+					<div class="card-body" style="height: 21.3em; overflow: hidden; overflow-y: scroll;">
 						<h5 class="card-title">A propos de l'artiste</h5>
 						<p class="card-text readMore">Originaire de
 							{{ current_artwork.artists.country}},
