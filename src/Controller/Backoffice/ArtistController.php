@@ -24,18 +24,22 @@ class ArtistController extends AbstractController
      */
     public function browse(ArtistRepository $artistRepository): Response
     {
-        $allArtist = $artistRepository->findAll();
+
+        $artist = $artistRepository->findArtistsWithAllInfos();
 
         return $this->render('backoffice/artist/browse.html.twig', [
-            'artist_list' => $allArtist,
+            'artist_list' => $artist,
         ]);
     }
 
     /**
-     * @Route("{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(Artist $artist): Response
+    public function read(Artist $artist, ArtistRepository $artistRepository): Response
     {
+
+        $artist = $artistRepository->findOneArtistWithAllInfos($artist->getSlug());
+
         return $this->render('backoffice/artist/read.html.twig', [
             'current_artist' => $artist,
         ]);

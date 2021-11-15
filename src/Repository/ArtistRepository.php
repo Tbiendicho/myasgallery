@@ -19,6 +19,46 @@ class ArtistRepository extends ServiceEntityRepository
         parent::__construct($registry, Artist::class);
     }
 
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Artist
+     */
+    public function findOneArtistWithAllInfos(string $slug): Artist
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT a, w
+            FROM App\Entity\Artist a
+            JOIN a.artworks w
+
+        -- this parameter will forbid some DQL injections
+            WHERE a.slug = :slug'
+        )->setParameter('slug', $slug);
+
+        // returns the selected Artwork Object
+        return $query->getOneOrNullResult();
+    }
+
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Artist[]
+     */
+    public function findArtistsWithAllInfos():array
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Artist a'
+        );
+
+        // returns the selected Artwork Object
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Artist[] Returns an array of Artist objects
     //  */
