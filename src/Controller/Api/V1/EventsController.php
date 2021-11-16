@@ -65,7 +65,7 @@ class EventsController extends AbstractController
      */
     public function read(string $slug, EventRepository $eventRepository): Response
     {
-        $event = $eventRepository->find($slug);
+        $event = $eventRepository->findBy(["slug" => $slug]);
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();

@@ -45,7 +45,7 @@ class CategoriesController extends AbstractController
      */
     public function read(string $slug, CategoryRepository $categoryRepository): Response
     {
-        $category = $categoryRepository->find($slug);
+        $category = $categoryRepository->findBy(["slug" => $slug]);
 
         if (is_null($category)) {
             return $this->getNotFoundResponse();
