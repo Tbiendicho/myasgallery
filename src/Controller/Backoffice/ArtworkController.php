@@ -33,7 +33,34 @@ class ArtworkController extends AbstractController
     }
 
     /**
-     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("add", name="add", methods={"GET", "POST"})
+     */
+    public function add(Request $request): Response 
+    {
+        $artwork = new Artwork();
+
+        $artworkForm = $this->createForm(ArtworkType::class, $artwork);
+        $artworkForm->handleRequest($request);
+
+        if ($artworkForm->isSubmitted() && $artworkForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($artwork);
+            $entityManager->flush();
+
+            $this->addFlash('success', "L'oeuvre {$artwork->getTitle()} a bien été ajoutée");
+
+            // Redirecting the user to be sure that the adding was done once
+            return $this->redirectToRoute('backoffice_artwork_browse');
+        }
+
+        return $this->render('backoffice/artwork/editadd.html.twig', [
+            'artwork_form' => $artworkForm->createView(),
+            'page' => 'add',
+        ]);
+    }
+
+    /**
+     * @Route("{slug}", name="read", methods={"GET"})
      */
     public function read(Artwork $artwork, ArtworkRepository $artworkRepository): Response
     {
@@ -75,42 +102,15 @@ class ArtworkController extends AbstractController
     }
 
     /**
-     * @Route("add", name="add", methods={"GET", "POST"})
+     * @Route("delete/{id}", name="delete", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function add(Request $request): Response 
+    public function delete(Artwork $artwork, EntityManagerInterface $entityManager): Response 
     {
-        $artwork = new Artwork();
+        $entityManager->remove($artwork);
+        $entityManager->flush();
 
-        $artworkForm = $this->createForm(ArtworkType::class, $artwork);
-        $artworkForm->handleRequest($request);
-
-        if ($artworkForm->isSubmitted() && $artworkForm->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($artwork);
-            $entityManager->flush();
-
-            $this->addFlash('success', "L'oeuvre {$artwork->getTitle()} a bien été ajoutée");
-
-            // Redirecting the user to be sure that the adding was done once
-            return $this->redirectToRoute('backoffice_artwork_browse');
-        }
-
-        return $this->render('backoffice/artwork/editadd.html.twig', [
-            'artwork_form' => $artworkForm->createView(),
-            'page' => 'add',
-        ]);
+        $this->addFlash('success', "L'oeuvre {$artwork->getTitle()} a bien été supprimée");
+        
+        return $this->redirectToRoute('backoffice_artwork_browse');
     }
-
-        /**
-         * @Route("delete/{id}", name="delete", methods={"GET"}, requirements={"id"="\d+"})
-         */
-        public function delete(Artwork $artwork, EntityManagerInterface $entityManager): Response 
-        {
-            $entityManager->remove($artwork);
-            $entityManager->flush();
-
-            $this->addFlash('success', "L'oeuvre {$artwork->getTitle()} a bien été supprimée");
-            
-            return $this->redirectToRoute('backoffice_artwork_browse');
-        }
 }

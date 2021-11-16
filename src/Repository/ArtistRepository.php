@@ -19,6 +19,16 @@ class ArtistRepository extends ServiceEntityRepository
         parent::__construct($registry, Artist::class);
     }
 
+    public function findRandom($count) {
+
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('RAND()')
+            ->setMaxResults($count)
+            ->getQuery();
+
+        return $query->execute();
+    }
+
     /**
      * Récupère toutes les informations liées au tvShow demandé
      * @return Artist
@@ -34,11 +44,33 @@ class ArtistRepository extends ServiceEntityRepository
             JOIN a.artworks w
 
         -- this parameter will forbid some DQL injections
-            WHERE a.slug = :slug'
-        )->setParameter('slug', $slug);
+            WHERE a.slug LIKE :slug'
+        )->setParameter('slug', "%" . $slug . "%");
 
         // returns the selected Artwork Object
         return $query->getOneOrNullResult();
+    }
+
+        /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Artist
+     */
+    public function searchArtists(string $slug)
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT a, w
+            FROM App\Entity\Artist a
+            JOIN a.artworks w
+
+        -- this parameter will forbid some DQL injections
+            WHERE a.slug LIKE :slug'
+        )->setParameter('slug', "%" . $slug . "%");
+
+        // returns the selected Artwork Object
+        return $query->getResult();
     }
 
     /**

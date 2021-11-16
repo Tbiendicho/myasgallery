@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1;
 
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,9 +18,24 @@ class EventsController extends AbstractController
     /**
      * @Route("", name="browse", methods={"GET"})
      */
-    public function browse(EventRepository $eventRepository): Response
+    public function browse(EventRepository $eventRepository, Request $request): Response
     {
-        $allEvents = $eventRepository->findAll();
+        $limit = (int) $request->get('limit');
+         $random = (int) $request->get('random');
+        
+         if($limit) {
+            $allEvents = $eventRepository->findBy(
+                [],
+                [],
+                $limit
+            );
+          
+         } elseif($random) {
+            $allEvents = $eventRepository->findRandom($random);
+         } else {
+            $allEvents = $eventRepository->findAll();
+         }
+
         return $this->json($allEvents, Response::HTTP_OK, [], ['groups' => 'api_event_browse']);
     }
 
