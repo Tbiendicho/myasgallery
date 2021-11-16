@@ -33,6 +33,32 @@ class ArtistController extends AbstractController
     }
 
     /**
+     * @Route("add", name="add", methods={"GET", "POST"})
+     */
+    public function add(Request $request): Response
+    {
+        $artist = new Artist;
+
+        $artistForm = $this->createForm(ArtistType::class, $artist);
+        $artistForm->handleRequest($request);
+
+        if ($artistForm->isSubmitted() && $artistForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($artist);
+            $entityManager->flush();
+
+            $this->addFlash('success', "L'artiste {$artist->getName()} a bien été ajouté");
+
+            return $this->redirectToRoute('backoffice_artist_browse');
+        }
+        
+        return $this->render('backoffice/artist/editadd.html.twig', [
+            'artist_form' => $artistForm->createView(),
+            'page' => 'add',
+        ]);
+    }
+
+    /**
      * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function read(Artist $artist, ArtistRepository $artistRepository): Response
@@ -68,32 +94,6 @@ class ArtistController extends AbstractController
             'artist_form' => $artistForm->createView(),
             'artist' => $artist,
             'page' => 'edit',
-        ]);
-    }
-
-    /**
-     * @Route("add", name="add", methods={"GET", "POST"})
-     */
-    public function add(Request $request): Response
-    {
-        $artist = new Artist;
-
-        $artistForm = $this->createForm(ArtistType::class, $artist);
-        $artistForm->handleRequest($request);
-
-        if ($artistForm->isSubmitted() && $artistForm->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($artist);
-            $entityManager->flush();
-
-            $this->addFlash('success', "L'artiste {$artist->getName()} a bien été ajouté");
-
-            return $this->redirectToRoute('backoffice_artist_browse');
-        }
-        
-        return $this->render('backoffice/artist/editadd.html.twig', [
-            'artist_form' => $artistForm->createView(),
-            'page' => 'add',
         ]);
     }
 

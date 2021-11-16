@@ -33,6 +33,33 @@ class EventController extends AbstractController
     }
 
     /**
+     * @Route("add", name="add", methods={"GET", "POST"})
+     */
+    public function add(Request $request): Response 
+    {
+        $event = new Event();
+
+        $eventForm = $this->createForm(EventType::class, $event);
+        $eventForm->handleRequest($request);
+
+        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($event);
+            $entityManager->flush();
+
+            $this->addFlash('success', "L'événement {$event->getName()} a bien été ajouté");
+
+            // Redirecting the user to be sure that the adding was done once
+            return $this->redirectToRoute('backoffice_event_browse');
+        }
+
+        return $this->render('backoffice/event/editadd.html.twig', [
+            'event_form' => $eventForm->createView(),
+            'page' => 'add',
+        ]);
+    }
+
+    /**
      * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function read(Event $event, EventRepository $eventRepository): Response
@@ -75,42 +102,15 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("add", name="add", methods={"GET", "POST"})
-     */
-    public function add(Request $request): Response 
-    {
-        $event = new Event();
+    * @Route("delete/{id}", name="delete", methods={"GET"}, requirements={"id"="\d+"})
+    */
+    public function delete(Event $event, EntityManagerInterface $entityManager): Response {
+            
+        $entityManager->remove($event);
+        $entityManager->flush();
 
-        $eventForm = $this->createForm(EventType::class, $event);
-        $eventForm->handleRequest($request);
-
-        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($event);
-            $entityManager->flush();
-
-            $this->addFlash('success', "L'événement {$event->getName()} a bien été ajouté");
-
-            // Redirecting the user to be sure that the adding was done once
-            return $this->redirectToRoute('backoffice_event_browse');
-        }
-
-        return $this->render('backoffice/event/editadd.html.twig', [
-            'event_form' => $eventForm->createView(),
-            'page' => 'add',
-        ]);
+        $this->addFlash('success', "L'événement {$event->getName()} a bien été supprimé");
+            
+        return $this->redirectToRoute('backoffice_event_browse');
     }
-
-        /**
-         * @Route("delete/{id}", name="delete", methods={"GET"}, requirements={"id"="\d+"})
-         */
-        public function delete(Event $event, EntityManagerInterface $entityManager): Response {
-            
-            $entityManager->remove($event);
-            $entityManager->flush();
-
-            $this->addFlash('success', "L'événement {$event->getName()} a bien été supprimé");
-            
-            return $this->redirectToRoute('backoffice_event_browse');
-        }
 }
