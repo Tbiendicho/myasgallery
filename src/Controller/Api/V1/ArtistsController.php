@@ -49,7 +49,7 @@ class ArtistsController extends AbstractController
     // function read is able to find all informations about one artist and return this with json
 
     /**
-    * @Route("/{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+    * @Route("/{slug}", name="read", methods={"GET"})
     */
     public function read(string $slug, ArtistRepository $artistRepository): Response
     {
