@@ -53,6 +53,12 @@ class ArtworkType extends AbstractType
                     'placeholder' => 'Ajouter une description',
                 ],
             ])
+            ->add('specificity', null, [
+                'label' => 'Spécificité',
+                'attr' => [
+                    'placeholder' => 'Ajouter une spécification',
+                ],
+            ])
             ->add('artists', null, [
                 'label' => 'Artiste*',
                 'required' => true,

@@ -12,13 +12,14 @@
 
 {{ form_start(artwork_form) }}
 
-<div class="d-flex p-2 d-flex justify-content-center mt-5">
+<div class="d-flex p-2 flex-wrap justify-content-center mt-5">
 
     <div class="mx-5">
 
         {{ form_row(artwork_form.title) }}
         {{ form_row(artwork_form.picture) }}
         {{ form_row(artwork_form.description) }}
+        {{ form_row(artwork_form.specificity) }}
         {{ form_row(artwork_form.height) }}
         {{ form_row(artwork_form.width) }}
         {{ form_row(artwork_form.depth) }}

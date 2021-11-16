@@ -60,4 +60,4 @@ security:
     role_hierarchy:
         ROLE_ADMIN: [ROLE_CATALOG_MANAGER]
         ROLE_CATALOG_MANAGER:  [ROLE_USER]
-        ROLE_USER:  [ROLE_USER_BROWSE, ROLE_USER_READ]
+        ROLE_USER:  [ROLE_USER]
