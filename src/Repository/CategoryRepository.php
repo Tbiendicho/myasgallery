@@ -19,7 +19,17 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-        /**
+    public function findRandom($count) {
+
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('RAND()')
+            ->setMaxResults($count)
+            ->getQuery();
+
+        return $query->execute();
+    }
+
+    /**
      * Récupère toutes les informations liées au tvShow demandé
      * @return Category
      */
@@ -35,11 +45,34 @@ class CategoryRepository extends ServiceEntityRepository
             JOIN w.artists a
 
         -- this parameter will forbid some DQL injections
-            WHERE c.slug = :slug'
-        )->setParameter('slug', $slug);
+            WHERE c.slug LIKE :slug'
+        )->setParameter('slug', "%" . $slug . "%");
 
         // returns the selected Category Object
         return $query->getOneOrNullResult();
+    }
+
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Category
+     */
+    public function searchCategories(string $slug)
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT c, w, a
+            FROM App\Entity\Category c
+            JOIN c.artworks w
+            JOIN w.artists a
+
+        -- this parameter will forbid some DQL injections
+            WHERE c.slug LIKE :slug'
+        )->setParameter('slug', "%" . $slug . "%");
+
+        // returns the selected Category Object
+        return $query->getResult();
     }
 
     /**

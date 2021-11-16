@@ -210,7 +210,7 @@ class Artwork
 
     public function getPictureUrl(): ?string
     {
-        $path = "http://ec2-54-165-78-59.compute-1.amazonaws.com/img/uploads/artworks/";
+        $path = "http://ec2-3-83-182-226.compute-1.amazonaws.com/img/uploads/artworks/";
         return $path . $this->pictureUrl;
     }
 

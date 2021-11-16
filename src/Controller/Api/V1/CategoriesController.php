@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1;
 
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,9 +18,24 @@ class CategoriesController extends AbstractController
     /**
      * @Route("", name="browse", methods={"GET"})
      */
-    public function browse(CategoryRepository $categoryRepository): Response
+    public function browse(CategoryRepository $categoryRepository, Request $request): Response
     {
-        $allCategories = $categoryRepository->findAll();
+        $limit = (int) $request->get('limit');
+         $random = (int) $request->get('random');
+        
+         if($limit) {
+            $allCategories = $categoryRepository->findBy(
+                [],
+                [],
+                $limit
+            );
+          
+         } elseif($random) {
+            $allCategories = $categoryRepository->findRandom($random);
+         } else {
+            $allCategories = $categoryRepository->findAll();
+         }
+
         return $this->json($allCategories, Response::HTTP_OK, [], ['groups' => 'api_category_browse']);
     }
 
@@ -39,6 +55,9 @@ class CategoriesController extends AbstractController
     }
 
     private function getNotFoundResponse() {
+
+        $localTest = "test";
+        $globalTest = $localTest;
 
         $responseArray = [
             'error' => true,

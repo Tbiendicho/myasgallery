@@ -26,26 +26,26 @@ class SearchController extends AbstractController
         $search = str_replace(' ','-', $search);
 
 
-        $artwork = $artworkRepository->findOneArtworkWithAllInfos($search);
-        $artist = $artistRepository->findOneArtistWithAllInfos($search);
-        $category = $categoryRepository->findOneCategoryWithAllInfos($search);
-        $event = $eventRepository->findOneEventWithAllInfos($search);
+        $artwork = $artworkRepository->searchArtworks($search);
+        $artist = $artistRepository->searchArtists($search);
+        $category = $categoryRepository->searchCategories($search);
+        $event = $eventRepository->searchEvents($search);
 
         if ($artwork) {
-            return $this->render('backoffice/artwork/read.html.twig', [
-            'current_artwork' => $artwork,
+            return $this->render('backoffice/artwork/browse.html.twig', [
+            'artwork_list' => $artwork,
             ]);
         } elseif ($artist) {
-            return $this->render('backoffice/artist/read.html.twig', [
-            'current_artist' => $artist,
+            return $this->render('backoffice/artist/browse.html.twig', [
+            'artist_list' => $artist,
             ]);
         } elseif ($category) {
-            return $this->render('backoffice/category/read.html.twig', [
-            'category' => $category,
+            return $this->render('backoffice/category/browse.html.twig', [
+            'category_list' => $category,
             ]);
         } elseif ($event) {
-            return $this->render('backoffice/event/read.html.twig', [
-            'current_event' => $event,
+            return $this->render('backoffice/event/browse.html.twig', [
+            'event_list' => $event,
             ]);
         } else {
             $this->addFlash('danger', 'Aucun résultat trouvé pour la recherche : ' . "{$request->query->get("search")}");
