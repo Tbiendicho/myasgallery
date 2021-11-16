@@ -53,7 +53,7 @@ class ArtistsController extends AbstractController
     */
     public function read(string $slug, ArtistRepository $artistRepository): Response
     {
-        $selectedArtist = $artistRepository->find($slug);
+        $selectedArtist = $artistRepository->findBy(["slug" => $slug]);
         
         if (is_null($selectedArtist)) {
             return $this->getNotFoundResponse();

@@ -64,7 +64,7 @@ class ArtworksController extends AbstractController
      */
     public function read(string $slug, ArtworkRepository $artworkRepository): Response
     {
-        $artwork = $artworkRepository->find($slug);
+        $artwork = $artworkRepository->findBy(["slug" => $slug]);
 
         if (is_null($artwork)) {
             return $this->getNotFoundResponse();
