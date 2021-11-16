@@ -41,11 +41,11 @@ class CategoriesController extends AbstractController
 
     // function read is able to find all informations about one category and return this with json
     /**
-     * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(int $id, CategoryRepository $categoryRepository): Response
+    public function read(string $slug, CategoryRepository $categoryRepository): Response
     {
-        $category = $categoryRepository->find($id);
+        $category = $categoryRepository->find($slug);
 
         if (is_null($category)) {
             return $this->getNotFoundResponse();
