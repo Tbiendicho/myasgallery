@@ -61,7 +61,7 @@ class EventsController extends AbstractController
 
     // function read is able to find all informations about one event and return this with json
     /**
-     * @Route("/{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/{slug}", name="read", methods={"GET"})
      */
     public function read(string $slug, EventRepository $eventRepository): Response
     {
