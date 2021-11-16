@@ -36,9 +36,15 @@ class EventType extends AbstractType
                 ],
             ])
             ->add('date', null, [
-                'label' => 'Date',
+                'label' => 'Date de début',
                 'attr' => [
-                    'placeholder' => 'Ajouter une largeur',
+                    'placeholder' => 'Ajouter une date de début',
+                ],
+            ])
+            ->add('dateEnd', null, [
+                'label' => 'Date de fin',
+                'attr' => [
+                    'placeholder' => 'Ajouter une date de fin',
                 ],
             ])
             ->add('link', null, [

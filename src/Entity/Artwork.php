@@ -131,6 +131,11 @@ class Artwork
      */
     private $events;
 
+    /**
+     * @ORM\Column(type="string", length=25, nullable=true)
+     */
+    private $specificity;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -347,6 +352,18 @@ class Artwork
     public function removeEvent(Event $event): self
     {
         $this->events->removeElement($event);
+
+        return $this;
+    }
+
+    public function getSpecificity(): ?string
+    {
+        return $this->specificity;
+    }
+
+    public function setSpecificity(?string $specificity): self
+    {
+        $this->specificity = $specificity;
 
         return $this;
     }

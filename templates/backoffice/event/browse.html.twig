@@ -7,7 +7,7 @@
 
 	<h1 class="text-center mt-5">Liste des événements</h1>
 
-	<div class="container" style="max-width: 1400px;">
+	<div class="container" style="max-width: 90%;">
 
 		{{ include('_partials/_flash_messages.html.twig') }}
 
@@ -18,7 +18,7 @@
 		<div class="row">
 
 			{% for currentEvent in event_list %}
-				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5 d-flex align-items-stretch">
+				<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 mt-5 mb-5 d-flex align-items-stretch">
 					<div class="card card-1" style="width: 100%;">
 						<a href="{{ url('backoffice_event_read', {"slug": currentEvent.slug}) }}"><img src="{{ asset('img/uploads/events/') ~ currentEvent.pictureName }}" class="card-img-top" alt="..."></a>
 
