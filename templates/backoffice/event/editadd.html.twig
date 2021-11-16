@@ -12,7 +12,7 @@
 
 {{ form_start(event_form) }}
 
-<div class="d-flex p-2 d-flex justify-content-center mt-5">
+<div class="form-font d-lg-flex p-2 justify-content-center mt-5">
 
     <div class="mx-5">
 
@@ -24,7 +24,10 @@
         {{ form_row(event_form.link) }}
         {{ form_row(event_form.latitude) }}
         {{ form_row(event_form.longitude) }} 
-        {{ form_row(event_form.artworks) }}
+        {{ form_label(event_form.artworks) }}
+        <div style="height: 12em; overflow: hidden; overflow-y: scroll;">
+            {{ form_widget(event_form.artworks) }}
+        </div>
 
     </div>
 
@@ -36,10 +39,12 @@
         {{ form_row(event_form.zipcode) }}
         {{ form_row(event_form.town) }}
         {{ form_row(event_form.country) }}
-        {{ form_row(event_form.artists) }}
+        {{ form_label(event_form.artists) }}
+            <div style="height: 12em; overflow: hidden; overflow-y: scroll;">
+        {{ form_widget(event_form.artists) }}
+        </div>
 
     </div>
-
         
 </div>
 
