@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container" style="max-width: 1400px;">
+	<div class="container" style="max-width: 90%;">
 	<div class="row mt-5 justify-content-center">
 		<div class="card card-1" style="width: 100%; padding: 0;">
 			<a href="{{ url('backoffice_category_read', {"slug": category.slug}) }}"><img src="{{ vich_uploader_asset(category, category.picture) }}" class="card-img-top" alt="..."></a>
@@ -38,7 +38,7 @@
 		<div class="row">
 
 			{% for artwork in category.artworks %}
-				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-5 d-flex align-items-stretch">
+				<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 mt-5 d-flex align-items-stretch">
 					<div class="card card-1 mx-auto" style="width: 100%;">
 						<a href="{{ url('backoffice_artwork_read', {"slug": artwork.slug}) }}"><img src="{{ asset('img/uploads/artworks/') ~ artwork.pictureName }}" class="card-img-top" alt="..."></a>
 

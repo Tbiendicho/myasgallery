@@ -7,9 +7,9 @@
 
 	<h1 class="text-center mt-5">{{ current_event.name }}</h1>
 
-	<div class="container" style="max-width: 1400px;">
+	<div class="container" style="max-width: 90%;">
 		<div class="d-flex justify-content-center mt-5">
-			<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 mt-2" style="width: 100%;">
+			<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 mt-2" style="width: 100%;">
 				<div class="card card-1">
 					<a href="{{ url('backoffice_event_read', {"slug": current_event.slug}) }}"><img src="{{vich_uploader_asset(current_event, current_event.picture)}}" class="card-img-top" alt="..."></a>
 
@@ -46,7 +46,7 @@
 
 		<div class="row mx-auto">
 			{% for artwork in current_event.artworks %}
-				<div class="col-xl-4 col-lg-4 col-xxl-3 col-md-6 col-sm-6">
+				<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 col-sm-6">
 					<div class="mt-5">
 						<div class="card card-1" style="width: 100%;">
 							<a href="{{ url('backoffice_artwork_read', {"slug": artwork.slug}) }}"><img src="{{vich_uploader_asset(artwork, artwork.picture)}}" class="card-img-top" alt="..."></a>
@@ -84,8 +84,8 @@
 
 		<div class="row mx-auto ms-1">
 			{% for artist in current_event.artists %}
-				<div class="mx-auto col-xl-4 col-lg-4 col-xxl-3 col-md-6 col-sm-6">
-					<div class="mt-5">
+				<div class="mx-auto col-xl-6 col-lg-6 col-xxl-3 col-md-12 col-sm-6">
+					<div class="mt-5 mb-5">
 						<div class="card card-1" style="width: 100%;">
 							<a href="{{ url('backoffice_artist_read', {"slug": artist.slug}) }}"><img src="{{vich_uploader_asset(artist, artist.photo)}}" class="card-img-top" alt="..."></a>
 							<div class="card-body">
