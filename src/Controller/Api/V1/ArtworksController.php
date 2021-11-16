@@ -42,11 +42,20 @@ class ArtworksController extends AbstractController
     /**
      * @Route("/categorie/{slug}", name="api_artwork_browse_by_category", methods={"GET"})
      */
-    public function browseByCategory(string $slug, ArtworkRepository $artworkRepository): Response
+    public function browseByCategory(string $slug, ArtworkRepository $artworkRepository, Request $request): Response
     {
-        $artwork = $artworkRepository->findArtworksFromOneCategory($slug);
+        $limit = (int) $request->get('limit');
+        $random = (int) $request->get('random');
+        
+        if($limit) {
+            $artworksByCategory = $artworkRepository->findArtworksFromCategoryWithLimit($limit, $slug);
+        } elseif($random) {
+            $artworksByCategory = $artworkRepository->findRandomArtworkByCategory($random, $slug);
+        } else {
+            $artworksByCategory = $artworkRepository->findArtworksFromOneCategory($slug);
+        }
 
-        return $this->json($artwork, Response::HTTP_OK, [], ['groups' => 'api_artwork_browse_by_category']);
+        return $this->json($artworksByCategory, Response::HTTP_OK, [], ['groups' => 'api_artwork_browse_by_category']);
     }
 
     // function read is able to find all informations about one artwork and return this with json

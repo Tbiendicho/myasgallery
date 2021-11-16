@@ -42,9 +42,19 @@ class EventsController extends AbstractController
     /**
      * @Route("/by-date", name="browseByDate", methods={"GET"})
      */
-    public function browseByDate(EventRepository $eventRepository): Response
+    public function browseByDate(EventRepository $eventRepository, Request $request): Response
     {
-        $allEventsByDate = $eventRepository->findEventsByDate();
+        $limit = (int) $request->get('limit');
+        $random = (int) $request->get('random');
+        
+        if($limit) {
+            $allEventsByDate = $eventRepository->findEventsByDateWithLimit($limit);
+        } elseif($random) {
+            $allEventsByDate = $eventRepository->findRandom($random);
+        } else {
+            $allEventsByDate = $eventRepository->findEventsByDate();
+        }
+
         return $this->json($allEventsByDate, Response::HTTP_OK, [], ['groups' => 'api_event_browse']);
     }
 
