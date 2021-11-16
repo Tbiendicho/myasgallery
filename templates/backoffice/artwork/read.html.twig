@@ -16,10 +16,10 @@
                     <p class="text-center">Artiste : {{current_artwork.artists}}</p>
                 </div>
                 
-                <div class="card-body d-flex align-items-end justify-content-between" style="padding: inherit">
-                    <a href="{{ url('backoffice_artwork_edit', {"id": current_artwork.id}) }}" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 3em; width: 8em; display: flex; justify-content: center; align-items: center;" class="btn btn-primary">Modifier</a>
+                <div class="card-body d-flex align-items-end justify-content-center" style="padding: inherit">
+                    <a href="{{ url('backoffice_artwork_edit', {"id": current_artwork.id}) }}" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 8em; border-radius: 1em;display: flex; justify-content: center; align-items: center;" class="btn m-4">Modifier</a>
                     <div class="btn-group" role="group">
-                        <button id="btnGroupDrop1" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 3em; width: 8em;" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
+                        <button id="btnGroupDrop1" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 8em; border-radius: 1em;" class="btn m-4 dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
                         <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                             <li><a class="dropdown-item" href="{{ url('backoffice_artwork_delete', {"id": current_artwork.id}) }}">Confimer la suppression</a></li>
                             <li><a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a></li>
