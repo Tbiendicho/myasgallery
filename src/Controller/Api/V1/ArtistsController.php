@@ -23,9 +23,24 @@ class ArtistsController extends AbstractController
     /**
     * @Route("", name="browse", methods={"GET"})
     */
-    public function browse(ArtistRepository $artistRepository): Response
+    public function browse(ArtistRepository $artistRepository, Request $request): Response
     {
-        $allArtists = $artistRepository->findAll();
+         $limit = (int) $request->get('limit');
+         $random = (int) $request->get('random');
+        
+         if($limit) {
+            $allArtists = $artistRepository->findBy(
+                [],
+                [],
+                $limit
+            );
+          
+         } elseif($random) {
+            $allArtists = $artistRepository->findRandom($random);
+         } else {
+            $allArtists = $artistRepository->findAll();
+         }
+
         
         return $this->json($allArtists, Response::HTTP_OK, [], ['groups' => 'api_artists_browse']);
     }

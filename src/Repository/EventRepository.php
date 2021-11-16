@@ -19,6 +19,16 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function findRandom($count) {
+
+        $query = $this->createQueryBuilder('e')
+            ->orderBy('RAND()')
+            ->setMaxResults($count)
+            ->getQuery();
+
+        return $query->execute();
+    }
+
     /**
      * Récupère toutes les informations liées au tvShow demandé
      * @return Event
@@ -35,11 +45,36 @@ class EventRepository extends ServiceEntityRepository
             JOIN e.artists a
 
         -- this parameter will forbid some DQL injections
-            WHERE e.slug = :slug'
-        )->setParameter('slug', $slug);
+            WHERE e.slug LIKE :slug OR e.country LIKE :slug'
+        )->setParameter('slug', "%" . $slug . "%");
 
         // returns the selected Artwork Object
+
         return $query->getOneOrNullResult();
+    }
+
+        /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Event
+     */
+    public function searchEvents(string $slug)
+    {
+        $entityManager = $this->getEntityManager();
+
+        // We will use the DQL (Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT e, w, a
+            FROM App\Entity\Event e
+            JOIN e.artworks w
+            JOIN e.artists a
+
+        -- this parameter will forbid some DQL injections
+            WHERE e.slug LIKE :slug OR e.country LIKE :slug'
+        )->setParameter('slug', "%" . $slug . "%");
+
+        // returns the selected Artwork Object
+
+        return $query->getResult();
     }
 
     /**
