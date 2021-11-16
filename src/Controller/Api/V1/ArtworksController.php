@@ -60,11 +60,11 @@ class ArtworksController extends AbstractController
 
     // function read is able to find all informations about one artwork and return this with json
     /**
-     * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(int $id, ArtworkRepository $artworkRepository): Response
+    public function read(string $slug, ArtworkRepository $artworkRepository): Response
     {
-        $artwork = $artworkRepository->find($id);
+        $artwork = $artworkRepository->find($slug);
 
         if (is_null($artwork)) {
             return $this->getNotFoundResponse();
