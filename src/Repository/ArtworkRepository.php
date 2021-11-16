@@ -29,6 +29,19 @@ class ArtworkRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function findRandomArtworkByCategory($count, $slug) {
+
+        $query = $this->createQueryBuilder('w')
+            ->innerJoin('w.categories', 'c')
+            ->where('c.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->orderBy('RAND()')
+            ->setMaxResults($count)
+            ->getQuery();
+
+        return $query->execute();
+    }
+
     /**
      * Récupère toutes les informations liées au tvShow demandé
      * @return Artwork
@@ -115,6 +128,24 @@ class ArtworkRepository extends ServiceEntityRepository
 
         // returns the selected Artwork Object
         return $query->getResult();
+    }
+
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Artwork[]
+     */
+    public function findArtworksFromCategoryWithLimit($limit, $slug):array
+    {
+        // We will use the DQL (Doctrine Query Language)
+        $query = $this->createQueryBuilder('w')
+            ->innerJoin('w.categories', 'c')
+            ->where('c.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return $query->execute();
+        
     }
 
 
