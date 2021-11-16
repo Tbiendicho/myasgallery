@@ -114,6 +114,22 @@ class EventRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return Event[]
+     */
+    public function findEventsByDateWithLimit($limit):array
+    {
+        // We will use the DQL (Doctrine Query Language)
+        $query = $this->createQueryBuilder('e')
+            ->orderBy('e.date', 'ASC')
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return $query->execute();
+        
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */
