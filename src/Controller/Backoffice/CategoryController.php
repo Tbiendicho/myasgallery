@@ -33,6 +33,32 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("add", name="add", methods={"GET", "POST"})
+     */
+    public function add(Request $request): Response
+    {
+        $category = new Category;
+
+        $categoryForm = $this->createForm(CategoryType::class, $category);
+        $categoryForm->handleRequest($request);
+
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash('success', "La catégorie {$category->getName()} a bien été ajoutée");
+
+            return $this->redirectToRoute('backoffice_category_browse');
+        }
+        
+        return $this->render('backoffice/category/editadd.html.twig', [
+            'category_form' => $categoryForm->createView(),
+            'page' => 'add',
+        ]);
+    }
+
+    /**
      * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function read(Category $category, CategoryRepository $categoryRepository): Response
@@ -67,32 +93,6 @@ class CategoryController extends AbstractController
             'category_form' => $categoryForm->createView(),
             'category' => $category,
             'page' => 'edit',
-        ]);
-    }
-
-    /**
-     * @Route("add", name="add", methods={"GET", "POST"})
-     */
-    public function add(Request $request): Response
-    {
-        $category = new Category;
-
-        $categoryForm = $this->createForm(CategoryType::class, $category);
-        $categoryForm->handleRequest($request);
-
-        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($category);
-            $entityManager->flush();
-
-            $this->addFlash('success', "La catégorie {$category->getName()} a bien été ajoutée");
-
-            return $this->redirectToRoute('backoffice_category_browse');
-        }
-        
-        return $this->render('backoffice/category/editadd.html.twig', [
-            'category_form' => $categoryForm->createView(),
-            'page' => 'add',
         ]);
     }
 
