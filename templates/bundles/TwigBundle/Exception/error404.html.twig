@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 404: Page introuvable
+{% endblock %}
+
+{% block body %}
+<div class="row m-auto mt-5" style="max-width: 800px; font-size: xx-large;">
+    <p class="text-center">Page introuvable: <a href="{{ path('backoffice_main_show') }}">cliquez ici pour revenir à l'accueil</a></p>
+	<img src="{{ asset('img/main/erreur-404.jpg')}}" alt="">
+</div>
+{% endblock %}
