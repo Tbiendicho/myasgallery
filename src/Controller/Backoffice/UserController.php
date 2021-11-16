@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 /**
  * @Route("/user/", name="user_", methods={"GET"})
+ * @IsGranted("ROLE_CATALOG_MANAGER")
  */
 class UserController extends AbstractController
 {

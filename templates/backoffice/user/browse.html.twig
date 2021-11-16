@@ -8,7 +8,7 @@
 
 	<div class="text-center mt-4">
 
-		<a href="{{ url('user_add') }}" type="button" class="btn btn-success">Ajouter un utilisateur</a>
+		<a href="{{ url('user_add') }}" type="button" class="btn btn-dark text-warning">Ajouter un utilisateur</a>
 
 	</div>
 
@@ -30,8 +30,8 @@
 						<td>{{ currentUser.getEmail }}</td>
 						<td>{{ currentUser.convertRoles(currentUser.getRoles) }}</td>
 						<td>
-							<a href="{{ url('user_edit', {"id": currentUser.id}) }}" type="button" class="btn btn-primary">Modifier</a>
-							<button id="btnGroupDrop1" type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
+							<a href="{{ url('user_edit', {"id": currentUser.id}) }}" type="button" class="btn btn-dark text-warning">Modifier</a>
+							<button id="btnGroupDrop1" type="button" class="btn btn-dark text-warning dropdown-toggle" data-bs-toggle="dropdown">Supprimer</button>
 							<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 								<li>
 									<a class="dropdown-item" href="{{ url('user_delete', {"id": currentUser.id}) }}">Confimer la suppression</a>
