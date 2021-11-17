@@ -5,31 +5,41 @@
 {% endblock %}
 
 {% block body %}
+
+	<h1 class="text-center mt-5">{{ category.name }}</h1>
+
 	<div class="container" style="max-width: 90%;">
-	<div class="row mt-5 justify-content-center">
-		<div class="card card-1" style="width: 100%; padding: 0;">
-			<a href="{{ url('backoffice_category_read', {"slug": category.slug}) }}"><img src="{{ vich_uploader_asset(category, category.picture) }}" class="card-img-top" alt="..."></a>
-			<div class="card-body">
-				<h5 class="card-title text-center">{{category.name}}</h5>
-			</div>
-			<div class="card-body d-flex align-items-end justify-content-between" style="padding: inherit">
-				<a href="{{ url('backoffice_category_edit', {"id": category.id}) }}" type="button" class="btn m-4" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 8em; border-radius: 1em; display: flex; justify-content: center; align-items: center;">Modifier</a>
-				<div class="btn-group" role="group">
-					<button id="btnGroupDrop1" type="button" class="btn m-4 dropdown-toggle" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 8em; border-radius: 1em;" data-bs-toggle="dropdown">Supprimer</button>
-					<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-						<li>
-							<a class="dropdown-item" href="{{ url('backoffice_category_delete', {"id": category.id}) }}">Confimer la suppression</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a>
-						</li>
-					</ul>
+
+		<div class="row mt-5 mx-auto justify-content-center read-size">
+			<div class="card card-1" style="width: 100%; padding: 0;">
+				<a href="{{ url('backoffice_category_read', {"slug": category.slug}) }}"><img src="{{ vich_uploader_asset(category, category.picture) }}" class="card-img-top" alt="..."></a>
+				<div class="card-body d-flex align-items-end justify-content-center" style="padding: inherit">
+					<a href="{{ url('backoffice_category_edit', {"id": category.id}) }}" type="button" class="btn m-4" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 6em; border-radius: 1em; display: flex; justify-content: center; align-items: center;">
+						<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+							<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+							<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+						</svg>
+					</a>
+					<div class="btn-group" role="group">
+						<button id="btnGroupDrop1" type="button" class="btn m-4 dropdown-toggle" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 6em; border-radius: 1em;" data-bs-toggle="dropdown">
+							<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+								<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+								<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+							</svg>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+							<li>
+								<a class="dropdown-item" href="{{ url('backoffice_category_delete', {"id": category.id}) }}">Confimer la suppression</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="backoffice_artwork_browse">Annuler</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	
 
 		{{ include('_partials/_flash_messages.html.twig') }}
 
@@ -39,7 +49,7 @@
 
 			{% for artwork in category.artworks %}
 				<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 mt-5 d-flex align-items-stretch">
-					<div class="card card-1 mx-auto" style="width: 100%;">
+					<div class="card card-1" style="width: 100%;">
 						<a href="{{ url('backoffice_artwork_read', {"slug": artwork.slug}) }}"><img src="{{ asset('img/uploads/artworks/') ~ artwork.pictureName }}" class="card-img-top" alt="..."></a>
 
 						<div class="card-body d-flex align-items-end">
@@ -56,10 +66,20 @@
 							</ul>
 						</div>
 
-						<div class="card-body d-flex align-items-end justify-content-between" style="padding: inherit">
-							<a href="{{ url('backoffice_artwork_edit', {"id": artwork.id}) }}" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 8em; border-radius: 1em; display: flex; justify-content: center; align-items: center;" class="btn m-4">Modifier</a>
+						<div class="card-body d-flex align-items-end justify-content-center" style="padding: inherit">
+							<a href="{{ url('backoffice_artwork_edit', {"id": artwork.id}) }}" type="button" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 6em; border-radius: 1em; display: flex; justify-content: center; align-items: center;" class="btn m-4">
+								<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+								</svg>
+							</a>
 							<div class="btn-group" role="group">
-								<button id="btnGroupDrop1" type="button" class="btn m-4 dropdown-toggle" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 8em; border-radius: 1em;" data-bs-toggle="dropdown">Supprimer</button>
+								<button id="btnGroupDrop1" type="button" class="btn m-4 dropdown-toggle" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 6em; border-radius: 1em;" data-bs-toggle="dropdown">
+									<svg class="icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+										<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+										<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+									</svg>
+								</button>
 								<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 									<li>
 										<a class="dropdown-item" href="{{ url('backoffice_artwork_delete', {"id": artwork.id}) }}">Confimer la suppression</a>
