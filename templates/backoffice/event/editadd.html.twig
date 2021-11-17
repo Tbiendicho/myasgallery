@@ -2,55 +2,57 @@
 
 {% block title %}
     {% if 'backoffice_event_edit' == app.request.get('_route') %}
-    Mettre à jour
+    Mettre à jour un événement
     {% else %}
-    Ajouter
+    Ajouter un événement
     {% endif %}
 {% endblock title %}
 
 {% block body %}
 
-{{ form_start(event_form) }}
+<div class="container" style="max-width: 90%">
 
-<div class="form-font d-lg-flex p-2 justify-content-center mt-5">
+    {{ form_start(event_form) }}
 
-    <div class="mx-5">
+    <div class="read-size form-font d-lg-flex p-2 justify-content-center mt-5">
 
-        {{ form_row(event_form.name) }}
-        {{ form_row(event_form.picture) }}
-        {{ form_row(event_form.information) }}
-        {{ form_row(event_form.date) }}
-        {{ form_row(event_form.dateEnd) }}
-        {{ form_row(event_form.link) }}
-        {{ form_row(event_form.latitude) }}
-        {{ form_row(event_form.longitude) }} 
-        {{ form_label(event_form.artworks) }}
-        <div style="height: 12em; overflow: hidden; overflow-y: scroll;">
-            {{ form_widget(event_form.artworks) }}
+        <div>
+
+            {{ form_row(event_form.name) }}
+            {{ form_row(event_form.picture) }}
+            <div>
+                {% if page != 'add' %}
+                <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(event, event.picture) }}"
+                {% endif %}
+            </div>
+            {{ form_row(event_form.information) }}
+            {{ form_row(event_form.date) }}
+            {{ form_row(event_form.dateEnd) }}
+            {{ form_row(event_form.link) }}
+            {{ form_row(event_form.latitude) }}
+            {{ form_row(event_form.longitude) }} 
+            {{ form_row(event_form.roadnumber) }}
+            {{ form_row(event_form.roadname) }}
+            {{ form_row(event_form.roadname2) }}
+            {{ form_row(event_form.zipcode) }}
+            {{ form_row(event_form.town) }}
+            {{ form_row(event_form.country) }}
+            {{ form_label(event_form.artists) }}
+            <div style="margin-bottom: 2em; height: 12em; overflow: hidden; overflow-y: scroll;">
+                {{ form_widget(event_form.artists) }}
+            </div>
+
+            {{ form_label(event_form.artworks) }}
+            <div style="margin-bottom: 2em; height: 12em; overflow: hidden; overflow-y: scroll;">
+                {{ form_widget(event_form.artworks) }}
+            </div>
         </div>
-
     </div>
-
-    <div class="mx-5">
-
-        {{ form_row(event_form.roadnumber) }}
-        {{ form_row(event_form.roadname) }}
-        {{ form_row(event_form.roadname2) }}
-        {{ form_row(event_form.zipcode) }}
-        {{ form_row(event_form.town) }}
-        {{ form_row(event_form.country) }}
-        {{ form_label(event_form.artists) }}
-            <div style="height: 12em; overflow: hidden; overflow-y: scroll;">
-        {{ form_widget(event_form.artists) }}
-        </div>
-
-    </div>
-        
 </div>
 
 <div class="text-center">
                 <p>* Champs obligatoire</p>
-        <button type="submit" class="btn btn-dark text-warning mt-4">
+        <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
         {% if 'backoffice_event_edit' == app.request.get('_route') %}
         Mettre à jour
         {% else %}

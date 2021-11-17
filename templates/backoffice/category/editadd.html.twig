@@ -11,37 +11,40 @@
 {% block body %}
 
 <h1 class="text-center mt-5">{% if 'backoffice_category_edit' == app.request.get('_route') %}
-    Mettre à jour
+    Mettre à jour une catégorie
     {% else %}
-    Ajouter
+    Ajouter une catégorie
     {% endif %}</h1>
+
+    <div class="container" style="max-width: 90%">
 
 {{ form_start(category_form) }}
 
-<div class="d-flex p-2 flex-wrap justify-content-center mt-5">
+        <div class="read-size form-font d-lg-flex p-2 flex-wrap mx-auto mt-5">
 
-    <div class="mx-5">
+             <div class="mx-5">
 
-        {{ form_row(category_form.name) }}
-        {{ form_row(category_form.picture) }}
+                {{ form_row(category_form.name) }}
+                {{ form_row(category_form.picture) }}
+                {% if page != 'add' %}
+                <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(category, category.picture) }}"
+                {% endif %}
 
+            </div>
+        </div>
     </div>
-        
-</div>
 
-<div class="text-center">
-                <p>* Champs obligatoire</p>
-        <button type="submit" class="btn btn-dark text-warning mt-4">
+    <div class="text-center">
+        <p>* Champs obligatoire</p>
+        <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
         {% if 'backoffice_category_edit' == app.request.get('_route') %}
-        Mettre à jour
+            Mettre à jour
         {% else %}
         Ajouter
         {% endif %}
         </button>
-</div>
+    </div>
 
     {{ form_end(category_form) }} 
     
-
-
 {% endblock %}

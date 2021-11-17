@@ -2,49 +2,52 @@
 
 {% block title %}
     {% if 'backoffice_artwork_edit' == app.request.get('_route') %}
-    Mettre à jour
+    Mettre à jour une oeuvre
     {% else %}
-    Ajouter
+    Ajouter une oeuvre
     {% endif %}
 {% endblock title %}
 
 {% block body %}
 
-{{ form_start(artwork_form) }}
+    <div class="container" style="max-width: 90%">
+    
+        {{ form_start(artwork_form) }}
 
-<div class="d-flex p-2 flex-wrap justify-content-center mt-5">
+            <div class="read-size form-font d-lg-flex p-2 flex-wrap justify-content-center mt-5">
 
-    <div class="mx-5">
+                <div>
 
-        {{ form_row(artwork_form.title) }}
-        {{ form_row(artwork_form.picture) }}
-        {{ form_row(artwork_form.description) }}
-        {{ form_row(artwork_form.specificity) }}
-        {{ form_row(artwork_form.height) }}
-        {{ form_row(artwork_form.width) }}
-        {{ form_row(artwork_form.depth) }}
+                    {{ form_row(artwork_form.title) }}
+                    {{ form_row(artwork_form.picture) }}
+                    <div>
+                        {% if page != 'add' %}
+                        <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(artwork, artwork.picture) }}"
+                        {% endif %}
+                    </div>
+                    {{ form_row(artwork_form.description) }}
+                    {{ form_row(artwork_form.specificity) }}
+                    {{ form_row(artwork_form.height) }}
+                    {{ form_row(artwork_form.width) }}
+                    {{ form_row(artwork_form.depth) }}
+                    {{ form_row(artwork_form.artists) }}
+                    {{ form_row(artwork_form.categories) }}
+
+                </div>
+            </div>
 
     </div>
 
-    <div class="mx-5">
-
-        {{ form_row(artwork_form.artists) }}
-        {{ form_row(artwork_form.categories) }}
-
-    </div>
-        
-</div>
-
-<div class="text-center">
-                <p>* Champs obligatoire</p>
-        <button type="submit" class="btn btn-dark text-warning mt-4">
+    <div class="text-center">
+        <p>* Champs obligatoire</p>
+        <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
         {% if 'backoffice_artwork_edit' == app.request.get('_route') %}
         Mettre à jour
         {% else %}
         Ajouter
         {% endif %}
         </button>
-</div>
+    </div>
 
     {{ form_end(artwork_form) }} 
     
