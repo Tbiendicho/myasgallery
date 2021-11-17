@@ -96,6 +96,12 @@ class Artwork
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=25, nullable=true)
+     * @Groups({"api_artwork_browse"})
+     */
+    private $specificity;
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      * 
      * 
@@ -130,11 +136,6 @@ class Artwork
      * @Groups({"api_artwork_browse", "api_artists_browse"})
      */
     private $events;
-
-    /**
-     * @ORM\Column(type="string", length=25, nullable=true)
-     */
-    private $specificity;
 
     public function __construct()
     {
@@ -272,6 +273,18 @@ class Artwork
         return $this;
     }
 
+    public function getSpecificity(): ?string
+    {
+        return $this->specificity;
+    }
+
+    public function setSpecificity(?string $specificity): self
+    {
+        $this->specificity = $specificity;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -352,18 +365,6 @@ class Artwork
     public function removeEvent(Event $event): self
     {
         $this->events->removeElement($event);
-
-        return $this;
-    }
-
-    public function getSpecificity(): ?string
-    {
-        return $this->specificity;
-    }
-
-    public function setSpecificity(?string $specificity): self
-    {
-        $this->specificity = $specificity;
 
         return $this;
     }
