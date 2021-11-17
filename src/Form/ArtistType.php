@@ -4,9 +4,10 @@ namespace App\Form;
 
 use App\Entity\Artist;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Liip\ImagineBundle\Imagine\Filter\Loader\LoaderInterface;
 
 class ArtistType extends AbstractType
 {
@@ -31,16 +32,18 @@ class ArtistType extends AbstractType
                 'label' => 'Nationalité*',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Saisir la nationalité'
+                    'placeholder' => 'Saisir une nationalité'
                 ],
             ])
-            ->add('photo', FileType::class, [
+            ->add('photo', VichImageType::class, [
                 'label' => 'Image*',
-                'data_class' => null,
-                'required' => true,
-            ])
-
-        ;
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => true,
+                'asset_helper' => true,
+                'imagine_pattern' => 'my_thumb',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -14,15 +14,16 @@
 		{{ include('_partials/_flash_messages.html.twig') }}
 
 		<div class="d-flex justify-content-center mt-4">
-			<a href="{{ url('backoffice_artist_add') }}" type="button" class="btn btn-dark text-warning" style="border-radius: 0.5em; font-size: 1.5em">Ajouter un artiste</a>
+			<a href="{{ url('backoffice_artist_add') }}" type="button" class="btn btn-dark text-warning" style="height: 2.2em; border-radius: 0.5em; font-size: 1.5em">Ajouter un artiste</a>
 		</div>
 
 		<div class="row">
 
 			{% for currentArtist in artist_list %}
 				<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 mt-5 d-flex align-items-stretch">
-					<div class="card card-1" style="width: 100%;">
+					<div class="card card-1 mx-auto justify-content-between" style="width: 100%;">
 						<a href="{{ url('backoffice_artist_read', {"slug": currentArtist.slug}) }}"><img src="{{ asset('img/uploads/artists/') ~ currentArtist.photoName }}" class="card-img-top" alt="..."></a>
+						<div class="d-flex flex-column">
 						<div class="card-body">
 							<h5 class="card-title text-center">{{currentArtist.name}}</h5>
 						</div>
@@ -45,6 +46,7 @@
 									</li>
 								</ul>
 							</div>
+						</div>
 						</div>
 					</div>
 				</div>
