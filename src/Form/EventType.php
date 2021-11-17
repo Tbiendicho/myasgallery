@@ -30,13 +30,15 @@ class EventType extends AbstractType
                 'required' => true,
             ])
             ->add('information', null, [
-                'label' => 'Description',
+                'label' => 'Description*',
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'Ajouter une description',
                 ],
             ])
             ->add('date', null, [
-                'label' => 'Date de début',
+                'label' => 'Date de début*',
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'Ajouter une date de début',
                 ],
@@ -50,7 +52,7 @@ class EventType extends AbstractType
             ->add('link', null, [
                 'label' => 'URL de l\'événement',
                 'attr' => [
-                    'placeholder' => 'Ajouter une profondeur',
+                    'placeholder' => 'Ajouter un lien',
                 ],
             ])
             ->add('latitude', null, [
@@ -61,48 +63,45 @@ class EventType extends AbstractType
             ])
             ->add('longitude', null, [
                 'label' => 'Longitude',
-                'required' => true,
                 'attr' => [
                     'placeholder' => 'Ajouter une longitude',
                 ],
             ])
             ->add('roadnumber', null, [
                 'label' => 'Numéro de rue',
-                'required' => true,
                 'attr' => [
-                    'placeholder' => 'Ajouter une longitude',
+                    'placeholder' => 'Ajouter un numéro de rue',
                 ],
             ])
             ->add('roadname', null, [
-                'label' => 'Adresse',
+                'label' => 'Adresse*',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Ajouter une longitude',
+                    'placeholder' => 'Ajouter une adresse',
                 ],
             ])
             ->add('roadname2', null, [
                 'label' => 'Complément d\'adresse',
-                'required' => true,
                 'attr' => [
-                    'placeholder' => 'Ajouter une longitude',
+                    'placeholder' => 'Ajouter un complément',
                 ],
             ])
             ->add('zipcode', null, [
-                'label' => 'Code Postal',
+                'label' => 'Code Postal*',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Ajouter un code postal',
                 ],
             ])
             ->add('town', null, [
-                'label' => 'Ville',
+                'label' => 'Ville*',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Ajouter une ville',
                 ],
             ])
             ->add('country', null, [
-                'label' => 'Pays',
+                'label' => 'Pays*',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Ajouter un pays',
@@ -111,7 +110,6 @@ class EventType extends AbstractType
             ->add('artworks', EntityType::class, [
                 'class' => Artwork::class,
                 'label' => 'Oeuvres présentes',
-                'required' => true,
                 'choice_label' => 'title',
                 'expanded' => true,
                 'multiple' => true,
@@ -119,13 +117,10 @@ class EventType extends AbstractType
             ->add('artists', EntityType::class, [
                 'class' => Artist::class,
                 'label' => 'Artistes exposés',
-                'required' => true,
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
-            ])
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
