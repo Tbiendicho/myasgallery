@@ -64,7 +64,7 @@ class EventController extends AbstractController
      */
     public function read(Event $event, EventRepository $eventRepository): Response
     {
-
+        
         $event = $eventRepository->findOneEventWithAllInfos($event->getSlug());
 
         return $this->render('backoffice/event/read.html.twig', [
