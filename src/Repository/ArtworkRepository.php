@@ -54,8 +54,8 @@ class ArtworkRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT w, a, c
             FROM App\Entity\Artwork w
-            JOIN w.artists a
-            JOIN w.categories c
+            LEFT JOIN w.artists a
+            LEFT JOIN w.categories c
 
         -- this parameter will forbid some DQL injections
             WHERE w.slug LIKE :slug'
@@ -100,7 +100,7 @@ class ArtworkRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT w, a
             FROM App\Entity\Artwork w
-            JOIN w.artists a'
+            LEFT JOIN w.artists a'
         );
 
         // returns the selected Artwork Object
@@ -119,8 +119,8 @@ class ArtworkRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT w, a, c
             FROM App\Entity\Artwork w
-            JOIN w.artists a
-            JOIN w.categories c
+            LEFT JOIN w.artists a
+            LEFT JOIN w.categories c
 
         -- this parameter will forbid some DQL injections
             WHERE c.slug = :slug'
