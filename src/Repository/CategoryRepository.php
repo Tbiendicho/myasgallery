@@ -64,8 +64,8 @@ class CategoryRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT c, w, a
             FROM App\Entity\Category c
-            JOIN c.artworks w
-            JOIN w.artists a
+            LEFT JOIN c.artworks w
+            LEFT JOIN w.artists a
 
         -- this parameter will forbid some DQL injections
             WHERE c.slug LIKE :slug'
