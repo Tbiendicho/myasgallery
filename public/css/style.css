@@ -5,6 +5,10 @@
   margin: auto;
   }
 
+  input :not(.searchbar) {
+    height: 3em;
+  }
+
   .login-form, .login-form h4 {
     font-size: 1.6em;
   }
@@ -76,3 +80,5 @@ body {
 .login-form {
   background-color: #B2B1B9;
 }
+
+

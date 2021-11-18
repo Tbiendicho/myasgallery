@@ -7,10 +7,9 @@ use App\Entity\Artwork;
 use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\HttpClient\Chunk\InformationalChunk;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EventType extends AbstractType
 {
@@ -24,10 +23,13 @@ class EventType extends AbstractType
                     'placeholder' => 'Ajouter le nom',
                 ],
             ])
-            ->add('picture', FileType::class, [
+            ->add('picture', VichImageType::class, [
                 'label' => 'Image*',
-                'data_class' => null,
-                'required' => true,
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => true,
             ])
             ->add('information', null, [
                 'label' => 'Description*',
