@@ -63,7 +63,7 @@ class ArtistRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT a, w
             FROM App\Entity\Artist a
-            JOIN a.artworks w
+            LEFT JOIN a.artworks w
 
         -- this parameter will forbid some DQL injections
             WHERE a.slug LIKE :slug'

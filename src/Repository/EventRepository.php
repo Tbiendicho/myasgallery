@@ -65,8 +65,8 @@ class EventRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT e, w, a
             FROM App\Entity\Event e
-            JOIN e.artworks w
-            JOIN e.artists a
+            LEFT JOIN e.artworks w
+            LEFT JOIN e.artists a
 
         -- this parameter will forbid some DQL injections
             WHERE e.slug LIKE :slug OR e.country LIKE :slug'
