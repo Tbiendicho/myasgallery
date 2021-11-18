@@ -10,7 +10,7 @@
 
 	<div class="login-form">
 
-		<div class="login-block bg-dark container border border-dark">
+		<div class="login-block bg-dark container border border-dark mt-5">
 			<h4 class="text-center text-warning mt-3 mb-3">Backoffice - Connexion</h4>
 		</div>
 
@@ -28,14 +28,14 @@
 
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-				<a class="text-center" href="{{ url('app_forgot_password_request') }}">
-					<p>Mot de passe oublié ?</p>
-					<p></p>
-				</a>
+				<div class="mt-4">
+					<a class="text-center" href="{{ url('app_forgot_password_request') }}">
+						<p>Mot de passe oublié ?</p>
+					</a>
+				</div>
 
 				<div class="text-center">
-
-					<button type="submit" class="btn mt-2 mb-3 text-warning bg-dark" style="border-radius: 0.5em; font-size: 1em">Se connecter</button>
+					<button type="submit" class="btn mt-3 mb-3 text-warning bg-dark" style="border-radius: 0.5em; font-size: 1em">Se connecter</button>
 				</div>
 			</form>
 		</div>
