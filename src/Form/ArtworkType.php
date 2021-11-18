@@ -2,15 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Artist;
 use App\Entity\Category;
-use App\Entity\Event;
 use App\Entity\Artwork;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArtworkType extends AbstractType
 {
@@ -24,10 +22,13 @@ class ArtworkType extends AbstractType
                     'placeholder' => 'Ajouter le titre',
                 ],
             ])
-            ->add('picture', FileType::class, [
+            ->add('picture', VichImageType::class, [
                 'label' => 'Image*',
-                'data_class' => null,
-                'required' => true,
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => true,
             ])
             ->add('height', null, [
                 'label' => 'Hauteur (en cm)',

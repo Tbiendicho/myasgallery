@@ -36,13 +36,12 @@ class ArtistType extends AbstractType
                 ],
             ])
             ->add('photo', VichImageType::class, [
-                'label' => 'Image*',
+                'label' => 'Photo*',
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,
                 'image_uri' => true,
                 'asset_helper' => true,
-                'imagine_pattern' => 'my_thumb',
             ]);
     }
 
