@@ -2,9 +2,9 @@
 
 {% block title %}
     {% if 'backoffice_artist_edit' == app.request.get('_route') %}
-    Mettre à jour un artiste
+        Mettre à jour un artiste
     {% else %}
-    Ajouter un artiste
+        Ajouter un artiste
     {% endif %}
 {% endblock title %}
 
@@ -13,44 +13,42 @@
 <h1 class="text-center mt-5">{% if 'backoffice_artist_edit' == app.request.get('_route') %}
     Mettre à jour
     {% else %}
-    Ajouter
+        Ajouter
     {% endif %}</h1>
 
     <div class="container" style="max-width: 90%">
 
-{{ form_start(artist_form) }}
+        {{ form_start(artist_form) }}
 
-<div class="read-size form-font d-lg-flex p-2 flex-wrap justify-content-center mt-5">
+        <div class="read-size form-font d-lg-flex p-2 flex-wrap justify-content-center mt-5">
 
-    <div>
+            <div>
+                {{ form_row(artist_form.name) }}
+                {{ form_row(artist_form.biography) }}
+                {{ form_row(artist_form.photo) }}
+                <div>
+                    {% if page != 'add' %}
+                        <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(artist, artist.photo) }}"
+                    {% endif %}
+                </div>
+                {{ form_row(artist_form.country) }}
+            </div>
 
-        {{ form_row(artist_form.name) }}
-        {{ form_row(artist_form.photo) }}
-        <div>
-            {% if page != 'add' %}
-            <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(artist, artist.photo) }}"
-            {% endif %}
         </div>
-        {{ form_widget(artist_form.biography) }}
-        {{ form_row(artist_form.country) }}
 
     </div>
-</div>
-</div>
 
-<div class="text-center">
-                <p>* Champs obligatoire</p>
-        <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
-        {% if 'backoffice_artist_edit' == app.request.get('_route') %}
-        Mettre à jour
-        {% else %}
-        Ajouter
-        {% endif %}
-        </button>
-</div>
+    <div class="text-center">
+            <p>* Champs obligatoire</p>
+            <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
+                {% if 'backoffice_artist_edit' == app.request.get('_route') %}
+                    Mettre à jour
+                {% else %}
+                    Ajouter
+                {% endif %}
+            </button>
+    </div>
 
     {{ form_end(artist_form) }} 
     
-
-
 {% endblock %}

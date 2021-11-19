@@ -24,7 +24,6 @@ class ArtistController extends AbstractController
      */
     public function browse(ArtistRepository $artistRepository): Response
     {
-
         $artist = $artistRepository->findArtistsWithAllInfos();
 
         return $this->render('backoffice/artist/browse.html.twig', [
@@ -59,7 +58,7 @@ class ArtistController extends AbstractController
     }
 
     /**
-     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{slug}", name="read", methods={"GET"})
      */
     public function read(Artist $artist, ArtistRepository $artistRepository): Response
     {

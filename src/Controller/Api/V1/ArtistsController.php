@@ -19,6 +19,7 @@ class ArtistsController extends AbstractController
 {
 
     // function browse is able to find a list of all artists and return this with json
+    // we can set a limit or get random artists with custom request
 
     /**
     * @Route("", name="browse", methods={"GET"})

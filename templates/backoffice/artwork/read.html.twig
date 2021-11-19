@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{current_artwork.title}}
-{% endblock %}
+{% block title %}{{current_artwork.title}}{% endblock %}
 
 {% block body %}
 
@@ -54,7 +52,6 @@
 				{{ current_artwork.artists.country}},
 				{{ current_artwork.artists.name }}
 				{{ current_artwork.artists.biography }}</p>
-
 		</div>
 
 	{% endblock %}

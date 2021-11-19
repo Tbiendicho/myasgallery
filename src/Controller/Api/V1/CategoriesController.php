@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoriesController extends AbstractController
 {
     // function browse is able to find a list of all categories and return this with json
+    // we can set a limit or get random categories with custom request
+
     /**
      * @Route("", name="browse", methods={"GET"})
      */
@@ -40,6 +42,7 @@ class CategoriesController extends AbstractController
     }
 
     // function read is able to find all informations about one category and return this with json
+    
     /**
      * @Route("/{slug}", name="read", methods={"GET"})
      */

@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventsController extends AbstractController
 {
     // function browse is able to find a list of all events and return this with json
+    // we can set a limit or get random events with custom request
+
     /**
      * @Route("", name="browse", methods={"GET"})
      */
@@ -39,6 +41,8 @@ class EventsController extends AbstractController
         return $this->json($allEvents, Response::HTTP_OK, [], ['groups' => 'api_event_browse']);
     }
 
+    // this route will find a list of events sorted by date, with limit or random parameters
+
     /**
      * @Route("/by-date", name="browseByDate", methods={"GET"})
      */
@@ -60,6 +64,7 @@ class EventsController extends AbstractController
 
 
     // function read is able to find all informations about one event and return this with json
+    
     /**
      * @Route("/{slug}", name="read", methods={"GET"})
      */
