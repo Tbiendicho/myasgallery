@@ -2,9 +2,9 @@
 
 {% block title %}
     {% if 'backoffice_event_edit' == app.request.get('_route') %}
-    Mettre à jour un événement
+        Mettre à jour un événement
     {% else %}
-    Ajouter un événement
+        Ajouter un événement
     {% endif %}
 {% endblock title %}
 
@@ -22,7 +22,7 @@
             {{ form_row(event_form.picture) }}
             <div>
                 {% if page != 'add' %}
-                <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(event, event.picture) }}"
+                    <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(event, event.picture) }}"
                 {% endif %}
             </div>
             {{ form_row(event_form.information) }}
@@ -46,23 +46,24 @@
             <div style="margin-bottom: 2em; height: 12em; overflow: hidden; overflow-y: scroll;">
                 {{ form_widget(event_form.artworks) }}
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 <div class="text-center">
-                <p>* Champs obligatoire</p>
-        <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
+    <p>* Champs obligatoire</p>
+    <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
         {% if 'backoffice_event_edit' == app.request.get('_route') %}
-        Mettre à jour
+            Mettre à jour
         {% else %}
-        Ajouter
+            Ajouter
         {% endif %}
-        </button>
+    </button>
 </div>
 
-    {{ form_end(event_form) }} 
+{{ form_end(event_form) }} 
     
-
-
 {% endblock %}

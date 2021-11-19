@@ -216,6 +216,7 @@ class Artwork
 
     public function getPictureUrl(): ?string
     {
+        // we'll catch the picture with the entire associated url
         $path = "http://ec2-3-83-182-226.compute-1.amazonaws.com/img/uploads/artworks/";
         return $path . $this->pictureUrl;
     }

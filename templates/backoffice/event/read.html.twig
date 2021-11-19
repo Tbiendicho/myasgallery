@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{current_event.name}}
+{% block title %}
+	{{current_event.name}}
 {% endblock %}
 
 {% block body %}
@@ -55,6 +56,7 @@
 		</div>
 
 		<div class="row mx-auto">
+
 			{% for artwork in current_event.artworks %}
 				<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 col-sm-6 mt-5 d-flex align-items-stretch mx-auto">
 
@@ -90,19 +92,17 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 			{% endfor %}
+			
 		</div>
-
-
-		{# {% if current_event.artists !== null %} #}
 
 		<div>
 			<h2 style="text-align:center; margin-top:2em;">Tous les artistes présents</h2>
 		</div>
 
 		<div class="row">
+
 			{% for artist in current_event.artists %}
 				<div class="col-xl-6 col-lg-6 col-xxl-3 col-md-12 col-sm-6 mt-5 mb-5 d-flex align-items-stretch mx-auto">
 					<div class="card card-1" style="width: 100%;">
@@ -139,10 +139,8 @@
 					</div>
 				</div>
 			{% endfor %}
+
 		</div>
-
-		{# {% endif %} #}
-
 	</div>
 
 {% endblock %}

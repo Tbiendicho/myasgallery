@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Artist;
 use App\Entity\Artwork;
-use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +22,8 @@ class EventType extends AbstractType
                     'placeholder' => 'Ajouter le nom',
                 ],
             ])
+
+            // using the vich bundle to load files
             ->add('picture', VichImageType::class, [
                 'label' => 'Image*',
                 'required' => false,

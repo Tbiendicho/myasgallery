@@ -9,9 +9,9 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-    /**
-     * @Route("/email/")
-     */
+/**
+ * @Route("/email/")
+ */
 class MailerController extends AbstractController
 {
     /**

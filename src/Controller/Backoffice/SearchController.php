@@ -16,6 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SearchController extends AbstractController
 {
+
+    // this function will sort elements by their name/title with each repository
+
     /**
      * @Route("/recherche", name="_bar")
      */
@@ -51,45 +54,5 @@ class SearchController extends AbstractController
             $this->addFlash('danger', 'Aucun résultat trouvé pour la recherche : ' . "{$request->query->get("search")}");
             return $this->redirectToRoute("backoffice_main_show");
         }
-
     }
-
-
-
-
-    //     $searchForm = $this->createFormBuilder()
-    //     ->setAction($this->generateUrl('backoffice_handleSearch'))
-    //     ->add('query', TextType::class, [
-    //         'attr' => [
-    //             'class' => 'form-control',
-    //             'placeholder' => 'Recherche'
-    //         ]
-    //     ])
-    //     ->add('recherche', SubmitType::class, [
-    //         'attr' => [
-    //             'class' => 'btn btn-primary'
-    //         ]
-    //     ])
-    //     ->getForm();
-
-    //     return $this->render('backoffice/search/searchBar.html.twig', [
-    //     'search_form' => $searchForm->createView()
-    // ]);
-    // }
-
-    // /**
-    //  * @Route("/handleSearch", name="handleSearch")
-    //  */
-    // public function handleSearch(Request $request, ArtistRepository $artistRepository)
-    // {
-    //     $query = $request->request->get('form')['query'];
-    //     if($query) {
-    //         $artist = $artistRepository->findArtistByName($query);
-    //     }
-    //     return $this->render('search/searchBar.html.twig', [
-    //         'currentArtist' => $artist
-    //     ]);
-    // }
-
-
 }

@@ -22,6 +22,8 @@ class ArtworkType extends AbstractType
                     'placeholder' => 'Ajouter le titre',
                 ],
             ])
+
+            // using the vich bundle to load files
             ->add('picture', VichImageType::class, [
                 'label' => 'Image*',
                 'required' => false,

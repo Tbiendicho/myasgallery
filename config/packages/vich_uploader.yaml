@@ -1,3 +1,5 @@
+# each directory has been defined for each category
+
 vich_uploader:
     db_driver: orm
 

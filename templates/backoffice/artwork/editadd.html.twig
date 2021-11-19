@@ -2,9 +2,9 @@
 
 {% block title %}
     {% if 'backoffice_artwork_edit' == app.request.get('_route') %}
-    Mettre à jour une oeuvre
+        Mettre à jour une oeuvre
     {% else %}
-    Ajouter une oeuvre
+        Ajouter une oeuvre
     {% endif %}
 {% endblock title %}
 
@@ -22,7 +22,7 @@
                     {{ form_row(artwork_form.picture) }}
                     <div>
                         {% if page != 'add' %}
-                        <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(artwork, artwork.picture) }}"
+                            <img style="width: 100%; margin-bottom: 2em" src="{{ vich_uploader_asset(artwork, artwork.picture) }}"
                         {% endif %}
                     </div>
                     {{ form_row(artwork_form.description) }}
@@ -34,6 +34,7 @@
                     {{ form_row(artwork_form.categories) }}
 
                 </div>
+
             </div>
 
     </div>
@@ -41,16 +42,14 @@
     <div class="text-center">
         <p>* Champs obligatoire</p>
         <button type="submit" class="btn btn-dark text-warning mt-4" style="border-radius: 0.5em; font-size: 1.5em">
-        {% if 'backoffice_artwork_edit' == app.request.get('_route') %}
-        Mettre à jour
-        {% else %}
-        Ajouter
-        {% endif %}
+            {% if 'backoffice_artwork_edit' == app.request.get('_route') %}
+                Mettre à jour
+            {% else %}
+                Ajouter
+            {% endif %}
         </button>
     </div>
 
     {{ form_end(artwork_form) }} 
     
-
-
 {% endblock %}

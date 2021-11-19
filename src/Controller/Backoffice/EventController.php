@@ -60,7 +60,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{slug}", name="read", methods={"GET"})
      */
     public function read(Event $event, EventRepository $eventRepository): Response
     {

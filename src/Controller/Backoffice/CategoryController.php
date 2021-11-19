@@ -59,7 +59,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("{slug}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("{slug}", name="read", methods={"GET"})
      */
     public function read(Category $category, CategoryRepository $categoryRepository): Response
     {
