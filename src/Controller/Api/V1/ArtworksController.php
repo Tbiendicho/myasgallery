@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtworksController extends AbstractController
 {
     // function browse is able to find a list of all artworks and return this with json
+    // we can set a limit or get random artworks with custom request
+
     /**
      * @Route("", name="browse", methods={"GET"})
      */
@@ -39,6 +41,8 @@ class ArtworksController extends AbstractController
         return $this->json($allArtworks, Response::HTTP_OK, [], ['groups' => 'api_artwork_browse']);
     }
 
+    // function browseByCategory is able to find all artworks of one category
+
     /**
      * @Route("/categorie/{slug}", name="api_artwork_browse_by_category", methods={"GET"})
      */
@@ -59,6 +63,7 @@ class ArtworksController extends AbstractController
     }
 
     // function read is able to find all informations about one artwork and return this with json
+    
     /**
      * @Route("/{slug}", name="read", methods={"GET"})
      */

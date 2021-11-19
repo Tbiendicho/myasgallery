@@ -19,6 +19,7 @@ class ArtworkRepository extends ServiceEntityRepository
         parent::__construct($registry, Artwork::class);
     }
 
+    // findRandom method is able to find a defined number of artworks
     public function findRandom($count) {
 
         $query = $this->createQueryBuilder('w')
@@ -43,7 +44,7 @@ class ArtworkRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all informations about one artwork
      * @return Artwork
      */
     public function findOneArtworkWithAllInfos(string $slug)
@@ -66,7 +67,7 @@ class ArtworkRepository extends ServiceEntityRepository
     }
 
         /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all artworks which have a specific slug in a part of their title
      * @return Artwork
      */
     public function searchArtworks(string $slug)
@@ -89,7 +90,7 @@ class ArtworkRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all artworks with all informations
      * @return Artwork[]
      */
     public function findArtworksWithAllInfos():array
@@ -108,7 +109,7 @@ class ArtworkRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all artworks from one category
      * @return Artwork[]
      */
     public function findArtworksFromOneCategory(string $slug):array
@@ -131,7 +132,7 @@ class ArtworkRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get a defined number of artworks from one category
      * @return Artwork[]
      */
     public function findArtworksFromCategoryWithLimit($limit, $slug):array
@@ -145,36 +146,5 @@ class ArtworkRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $query->execute();
-        
     }
-
-
-    // /**
-    //  * @return Artwork[] Returns an array of Artwork objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Artwork
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

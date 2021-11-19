@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{ current_artist.name }}
-{% endblock %}
+{% block title %}{{ current_artist.name }}{% endblock %}
 
 {% block body %}
 
@@ -18,7 +16,6 @@
 					{{ current_artist.country}},
 					{{ current_artist.name }}
 					{{ current_artist.biography }}</p>
-
 			</div>
 			<div class="card-body d-flex align-items-end justify-content-center" style="padding: inherit;">
 				<a href="{{ url('backoffice_artist_edit', {"id": current_artist.id}) }}" type="button" class="btn m-4" style="color: #ffc107; background-color: #212529; border-color: #212529; height: 4em; width: 6em; border-radius: 1em;display: flex; justify-content: center; align-items: center;">
@@ -45,7 +42,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<div>
 			<h2 style="text-align:center; margin-top:2em;">Toutes ses oeuvres</h2>
@@ -91,7 +87,7 @@
 						</div>
 					</div>
 				</div>
-				{% endfor %}
-			</div>
+			{% endfor %}
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

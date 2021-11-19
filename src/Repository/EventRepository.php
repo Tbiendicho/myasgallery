@@ -19,6 +19,7 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    // findRandom method is able to find a defined number of events
     public function findRandom($count) {
 
         $query = $this->createQueryBuilder('e')
@@ -30,7 +31,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all informations about one event
      * @return Event
      */
     public function findOneEventWithAllInfos(string $slug)
@@ -53,8 +54,8 @@ class EventRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
-        /**
-     * Récupère toutes les informations liées au tvShow demandé
+    /**
+     * Get all events who have a specific slug in a part of their name
      * @return Event
      */
     public function searchEvents(string $slug)
@@ -73,12 +74,11 @@ class EventRepository extends ServiceEntityRepository
         )->setParameter('slug', "%" . $slug . "%");
 
         // returns the selected Artwork Object
-
         return $query->getResult();
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all events with all informations
      * @return Event[]
      */
     public function findEventsWithAllInfos():array
@@ -96,7 +96,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all events sorted by date
      * @return Event[]
      */
     public function findEventsByDate():array
@@ -115,7 +115,7 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get a defined number of events sorted by date
      * @return Event[]
      */
     public function findEventsByDateWithLimit($limit):array
@@ -127,35 +127,5 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $query->execute();
-        
     }
-
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Event
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

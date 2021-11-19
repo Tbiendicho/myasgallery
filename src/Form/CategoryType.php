@@ -20,6 +20,8 @@ class CategoryType extends AbstractType
                     'placeholder' => 'Saisir un nom'
                 ],
             ])
+
+            // using the vich bundle to load files
             ->add('picture', VichImageType::class, [
                 'label' => 'Image*',
                 'required' => false,

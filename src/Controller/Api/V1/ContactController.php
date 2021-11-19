@@ -11,6 +11,9 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class ContactController extends AbstractController
 {
+
+    // this route will send an email to a user who sent a message with the contact form
+
     /**
      * @Route("/api/v1/contact", name="contact", methods={"POST"})
      */
@@ -28,7 +31,7 @@ class ContactController extends AbstractController
 
         $email = (new TemplatedEmail())
             ->from('myasgallerydev@gmail.com')
-            ->to('thomas.biendicho@gmail.com')
+            ->to($mail, 'thomas.biendicho@gmail.com')
             ->subject($messageObject)
             ->text($message)
             ->htmlTemplate('contact/index.html.twig')

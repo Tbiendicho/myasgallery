@@ -1,3 +1,5 @@
+# this bundle let us manage the Cors, with origin, headers and methods
+
 nelmio_cors:
     defaults:
         origin_regex: true

@@ -19,6 +19,7 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    // findRandom method is able to find a defined number of categories
     public function findRandom($count) {
 
         $query = $this->createQueryBuilder('c')
@@ -30,7 +31,7 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all informations about one category
      * @return Category
      */
     public function findOneCategoryWithAllInfos(string $slug)
@@ -53,7 +54,7 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all categories who have a specific slug in a part of their name
      * @return Category
      */
     public function searchCategories(string $slug)
@@ -76,7 +77,7 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère toutes les informations liées au tvShow demandé
+     * Get all categories with all informations
      * @return Category[]
      */
     public function findCategoriesWithAllInfos():array
@@ -93,33 +94,4 @@ class CategoryRepository extends ServiceEntityRepository
         // returns the selected Category Object
         return $query->getResult();
     }
-
-    // /**
-    //  * @return Category[] Returns an array of Category objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Category
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
